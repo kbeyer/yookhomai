@@ -61,7 +61,7 @@ exports.sms = function(request, response) {
               var newUser = new User({name: from, email: from, phone: from, password: from});
 
               newUser.provider = 'local';
-              usnewUser.save(function(err) {
+              newUser.save(function(err) {
                   if (err) {
                       return respondWithError(err);
                   }
@@ -78,5 +78,5 @@ exports.sms = function(request, response) {
         response.statusCode = 403;
         response.render('forbidden');
     }
-    next();
+    
 };
