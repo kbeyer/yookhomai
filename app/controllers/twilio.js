@@ -25,7 +25,7 @@ exports.sms = function(request, response) {
         // the voter, use this to keep people from voting more than once
         var from = request.param('From');
 
-        console.log('Accepting vote: ' + event.name + ', ' + from);
+        console.log('Recieved sms from: ' + from);
         response.send('<Response><Sms>Got it.  Pray on..</Sms></Response>');
 
     }
