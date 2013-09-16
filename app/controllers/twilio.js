@@ -60,12 +60,12 @@ exports.sms = function(request, response) {
               // NOTE: auto-creating new user for this phone number
               var newUser = new User({name: from, email: from, phone: from, password: from});
 
-              user.provider = 'local';
-              user.save(function(err) {
+              newUser.provider = 'local';
+              usnewUser.save(function(err) {
                   if (err) {
                       return respondWithError(err);
                   }
-                  createNewPrayer(user);
+                  createNewPrayer(newUser);
               });
             }else{
               createNewPrayer(user);

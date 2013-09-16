@@ -1,7 +1,7 @@
 {
     "db": "mongodb://kyle:1.kyle.1@widmore.mongohq.com:10010/Prayapp/",
     "app": {
-        "name": "MEAN - A Modern Stack - Development"
+        "name": "prayapp"
     },
     "facebook": {
         "clientID": "APP_ID",
