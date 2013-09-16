@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
     twiliosig = require('twiliosig');
 
 exports.sms = function(request, response) {
+  console.log('twilio.sms called with ' + JSON.stringify(request));
   if (twiliosig.valid(request, config.twilio.authToken) || config.twilio.disableTwilioSigCheck) {
         response.header('Content-Type', 'text/xml');
         var body = request.param('Body').trim();
