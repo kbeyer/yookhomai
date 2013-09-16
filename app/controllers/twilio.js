@@ -27,7 +27,7 @@ exports.sms = function(request, response) {
 
         console.log('Recieved sms from: ' + from);
 
-        var respondWithError function(err){
+        var respondWithError = function(err){
           console.error('Error processing sms. Errors: ' + JSON.stringify(err));
           return response.send('<Response><Sms>Sorry. There was a problem.</Sms></Response>');
         };
