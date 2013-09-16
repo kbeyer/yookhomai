@@ -8,10 +8,16 @@ var mongoose = require('mongoose'),
     twiliosig = require('twiliosig');
 
 exports.sms = function(request, response) {
-  console.log('twilio.sms called with ' + JSON.stringify(request));
+  console.log('twilio.sms called from ' + request.host + ' with body ' + request.body);
   if (twiliosig.valid(request, config.twilio.authToken) || config.twilio.disableTwilioSigCheck) {
+
+        console.log('twilio sig valid');
+
         response.header('Content-Type', 'text/xml');
-        var body = request.param('Body').trim();
+        var body = '';
+        if(request.param('Body')){
+          body = request.param('Body').trim();
+        }
         
         // the number the vote it being sent to (this should match an Event)
         var to = request.param('To');
