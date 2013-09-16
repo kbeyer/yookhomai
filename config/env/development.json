@@ -1,5 +1,5 @@
 {
-    "db": "mongodb://kyle:1.mongo.1@paulo.mongohq.com:10022/SnowFence/",
+    "db": "mongodb://kyle:1.kyle.1@widmore.mongohq.com:10010/Prayapp/",
     "app": {
         "name": "MEAN - A Modern Stack - Development"
     },

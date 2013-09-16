@@ -14,6 +14,7 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
     name: String,
     email: String,
+    phone: String,
     username: String,
     provider: String,
     hashed_password: String,

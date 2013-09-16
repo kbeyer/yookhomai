@@ -26,11 +26,55 @@ exports.sms = function(request, response) {
         var from = request.param('From');
 
         console.log('Recieved sms from: ' + from);
-        response.send('<Response><Sms>Got it.  Pray on..</Sms></Response>');
+
+        var respondWithError function(err){
+          console.error('Error processing sms. Errors: ' + JSON.stringify(err));
+          return response.send('<Response><Sms>Sorry. There was a problem.</Sms></Response>');
+        };
+
+        var createNewPrayer = function(user){
+          var article = new Article(body);
+          article.user = user;
+
+          article.save(function(err) {
+              if (err) {
+                  return respondWithError(err);
+              } 
+              else {
+                response.send('<Response><Sms>Got it.  Pray on..</Sms></Response>');
+              }
+          });
+
+        };
+
+        // try to find user
+        User
+        .findOne({
+            phone: from
+        })
+        .exec(function(err, user) {
+            if (err){ return respondWithError(err); }
+            if (!user){
+              // NOTE: auto-creating new user for this phone number
+              var newUser = new User({name: from, email: from, phone: from, password: from});
+
+              user.provider = 'local';
+              user.save(function(err) {
+                  if (err) {
+                      return respondWithError(err);
+                  }
+                  createNewPrayer(user);
+              });
+            }else{
+              createNewPrayer(user);
+            }
+
+        });
 
     }
     else {
         response.statusCode = 403;
         response.render('forbidden');
     }
+    next();
 };
