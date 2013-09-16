@@ -2,6 +2,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+    User = mongoose.model('User'),
+    Article = mongoose.model('Article'),
     config = require('../../config/config'),
     async = require('async'),
     _ = require('underscore'),
