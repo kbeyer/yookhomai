@@ -18,6 +18,9 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
     auth = require('./config/middlewares/authorization'),
     mongoose = require('mongoose');
 
+// load twilio
+var twilioClient = require('./config/twilio');
+
 //Bootstrap db connection
 var db = mongoose.connect(config.db);
 

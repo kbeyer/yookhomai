@@ -22,5 +22,12 @@
         "clientID": "APP_ID",
         "clientSecret": "APP_SECRET",
         "callbackURL": "http://localhost:3000/auth/google/callback"
+    },
+    "twilio":{
+        "accountSid": "AC62517045a1bbfc0d0ce5229f887cd6c6",
+        "authToken": "e0efaa291973715a9a297fa528ec1f73",
+        "defaultFrom": "+12548701576",
+        "adminTo": "+18176755317",
+        "disableTwilioSigCheck": true
     }
 }

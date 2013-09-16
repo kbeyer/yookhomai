@@ -36,7 +36,9 @@
         "forever": "latest",
         "grunt": "latest",
         "grunt-cli": "latest",
-        "grunt-bower-task": "latest"
+        "grunt-bower-task": "latest",
+        "twilio": "latest",
+        "twiliosig": "latest"
     },
     "devDependencies": {
         "supertest": "latest",
