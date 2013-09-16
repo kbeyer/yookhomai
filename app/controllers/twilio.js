@@ -10,7 +10,6 @@ var mongoose = require('mongoose'),
     twiliosig = require('twiliosig');
 
 exports.sms = function(request, response) {
-  console.log('twilio.sms called from ' + request.host + ' with body ' + request.body);
   if (twiliosig.valid(request, config.twilio.authToken) || config.twilio.disableTwilioSigCheck) {
 
         console.log('twilio sig valid');
@@ -27,7 +26,7 @@ exports.sms = function(request, response) {
         // the voter, use this to keep people from voting more than once
         var from = request.param('From');
 
-        console.log('Recieved sms from: ' + from);
+        console.log('Recieved sms from: ' + from + ' with body "' + body + '"');
 
         var respondWithError = function(err){
           console.error('Error processing sms. Errors: ' + JSON.stringify(err));
@@ -35,7 +34,7 @@ exports.sms = function(request, response) {
         };
 
         var createNewPrayer = function(user){
-          var article = new Article(body);
+          var article = new Article({title: body});
           article.user = user;
 
           article.save(function(err) {
@@ -78,5 +77,5 @@ exports.sms = function(request, response) {
         response.statusCode = 403;
         response.render('forbidden');
     }
-    
+
 };
