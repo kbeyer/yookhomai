@@ -1,7 +1,7 @@
 {
-    "db": "mongodb://kyle:1.kyle.1@widmore.mongohq.com:10010/Prayapp/",
+    "db": "mongodb://kyle:1.kyle.1@paulo.mongohq.com:10069/Yookhomai/",
     "app": {
-        "name": "prayapp"
+        "name": "Yookhomai"
     },
     "facebook": {
         "clientID": "APP_ID",
@@ -28,6 +28,6 @@
         "authToken": "e0efaa291973715a9a297fa528ec1f73",
         "defaultFrom": "+12548701576",
         "adminTo": "+18176755317",
-        "disableTwilioSigCheck": true
+        "disableTwilioSigCheck": false
     }
 }
