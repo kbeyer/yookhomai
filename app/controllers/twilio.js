@@ -9,6 +9,17 @@ var mongoose = require('mongoose'),
     _ = require('underscore'),
     twiliosig = require('twiliosig');
 
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 exports.sms = function(request, response) {
   if (twiliosig.valid(request, config.twilio.authToken) || config.twilio.disableTwilioSigCheck) {
 
@@ -33,6 +44,19 @@ exports.sms = function(request, response) {
           return response.send('<Response><Sms>Sorry. There was a problem.</Sms></Response>');
         };
 
+        var respondWithSuccess = function(user, article){
+          var message = 'Got it! Your prayer has been saved.';
+          switch(user.status){
+            case "pending":
+              message = message + ' Now you can setup and manage your account at http://app.yookhomai.com/?code=' + user.verificationKey;
+              break;
+            case "suspended":
+              message = 'Sorry, your account is currently suspended.';
+              break;
+          }
+          response.send('<Response><Sms>' + message + '</Sms></Response>');
+        };
+
         var createNewPrayer = function(user){
           var article = new Article({title: body});
           article.user = user;
@@ -42,7 +66,7 @@ exports.sms = function(request, response) {
                   return respondWithError(err);
               } 
               else {
-                response.send('<Response><Sms>Got it.  Pray on..</Sms></Response>');
+                  return respondWithSuccess(user, article);
               }
           });
 
@@ -57,7 +81,11 @@ exports.sms = function(request, response) {
             if (err){ return respondWithError(err); }
             if (!user){
               // NOTE: auto-creating new user for this phone number
-              var newUser = new User({name: from, email: from, phone: from, password: from});
+              var newUser = new User({name: from, 
+                                      email: from, 
+                                      phone: from, 
+                                      password: makeid(), 
+                                      verificationKey: makeid()});
 
               newUser.provider = 'local';
               newUser.save(function(err) {
@@ -67,6 +95,10 @@ exports.sms = function(request, response) {
                   createNewPrayer(newUser);
               });
             }else{
+
+              // check if this is a new user who sent email
+
+
               createNewPrayer(user);
             }
 

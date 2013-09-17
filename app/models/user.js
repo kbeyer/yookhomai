@@ -16,6 +16,8 @@ var UserSchema = new Schema({
     email: String,
     phone: String,
     username: String,
+    status: {type: String, default: 'pending'},
+    verificationKey: String,
     provider: String,
     hashed_password: String,
     salt: String,
