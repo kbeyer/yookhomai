@@ -45,10 +45,10 @@ exports.sms = function(request, response) {
         };
 
         var respondWithSuccess = function(user, article){
-          var message = 'Got it! Your prayer has been saved.';
+          var message = 'Saved! Thanks for using Yookhomai.';
           switch(user.status){
             case "pending":
-              message = message + ' Now you can setup and manage your account at http://app.yookhomai.com/?code=' + user.verificationKey;
+              message = message + ' Now you can setup and manage your account at http://app.yookhomai.com/signup?phone=' + encodeURIComponent(from);
               break;
             case "suspended":
               message = 'Sorry, your account is currently suspended.';

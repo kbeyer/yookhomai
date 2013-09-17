@@ -32,11 +32,22 @@ module.exports = function(grunt) {
         jshint: {
             all: ['gruntfile.js', 'public/js/**/*.js', 'test/**/*.js', 'app/**/*.js']
         },
+        'node-inspector':{
+            custom:{
+                options: {
+                    'web-port': 8080,
+                    'web-host': 'localhost',
+                    'debug-port': 5858,
+                    'save-live-edit': true,
+                    hidden: ['gruntfile.js']
+                }
+            }
+        },
         nodemon: {
             dev: {
                 options: {
                     file: 'server.js',
-                    args: [],
+                    args: ['--debug'],
                     ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
                     watchedExtensions: ['js'],
                     watchedFolders: ['app', 'config'],
@@ -50,7 +61,7 @@ module.exports = function(grunt) {
             }
         },
         concurrent: {
-            tasks: ['nodemon', 'watch'], 
+            tasks: ['node-inspector', 'nodemon', 'watch'],
             options: {
                 logConcurrentOutput: true
             }
@@ -75,6 +86,7 @@ module.exports = function(grunt) {
     });
 
     //Load NPM tasks 
+    grunt.loadNpmTasks('grunt-node-inspector');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-mocha-test');
@@ -87,6 +99,8 @@ module.exports = function(grunt) {
 
     //Default task(s).
     grunt.registerTask('default', ['jshint', 'concurrent']);
+
+    grunt.registerTask('debug', ['jshint', 'concurrent']);
 
     //Test task.
     grunt.registerTask('test', ['mochaTest']);

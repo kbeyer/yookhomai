@@ -80,7 +80,9 @@ exports.show = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
-    Article.find().sort('-created').populate('user').exec(function(err, articles) {
+    // only show articles for current user
+
+    Article.find({user: req.user}).sort('-created').populate('user').exec(function(err, articles) {
         if (err) {
             res.render('error', {
                 status: 500

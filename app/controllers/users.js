@@ -25,10 +25,42 @@ exports.signin = function(req, res) {
  * Show sign up form
  */
 exports.signup = function(req, res) {
-    res.render('users/signup', {
-        title: 'Sign up',
-        user: new User()
-    });
+    var phone = req.query.phone;
+
+    var renderSignup = function(user){
+        res.render('users/signup', {
+            title: 'Sign up',
+            user: user
+        });
+    };
+
+    var renderError = function(err){
+        res.render('users/signup', {
+            error: err,
+            user: new User()
+        });
+    };
+    
+    if(phone){
+        console.log('trying to autopopulate phone on signup page with: ' + phone);
+        // try to lookup user to associate new one with
+        User
+        .findOne({
+            phone: phone
+        })
+        .exec(function(err, user) {
+            if (err){ return renderError(err); }
+            if(user){
+                console.log('found existing user');
+                // render signup form with auto-populated phone
+                renderSignup(new User({phone: user.phone}));
+            }else{
+                renderError({message: 'problem finding user with phone: ' + phone});
+            }
+        });
+    }else{
+        renderSignup(new User());
+    }
 };
 
 /**
@@ -50,21 +82,47 @@ exports.session = function(req, res) {
  * Create user
  */
 exports.create = function(req, res) {
-    var user = new User(req.body);
+    var formUser = new User(req.body);
 
-    user.provider = 'local';
-    user.save(function(err) {
-        if (err) {
-            return res.render('users/signup', {
-                errors: err.errors,
-                user: user
+    var saveUser = function(user){
+        // update status and set provider
+        user.status = 'joined';
+        user.provider = 'local';
+        user.save(function(err) {
+            if (err) {
+                return res.render('users/signup', {
+                    errors: err.errors,
+                    user: user
+                });
+            }
+
+            req.logIn(user, function(err) {
+                if (err) return next(err);
+                return res.redirect('/');
             });
-        }
-        req.logIn(user, function(err) {
-            if (err) return next(err);
-            return res.redirect('/');
         });
+    };
+
+    // try to lookup user to associate new one with
+    User
+    .findOne({
+        phone: formUser.phone
+    })
+    .exec(function(err, existingUser) {
+        if (err){ return renderError(err); }
+        if(existingUser){
+            console.log('found existing user');
+            // update existing user
+            existingUser.name = formUser.name;
+            existingUser.email = formUser.email;
+            existingUser.password = formUser.password;
+            saveUser(existingUser);
+
+        }else{
+            saveUser(formUser);
+        }
     });
+
 };
 
 /**

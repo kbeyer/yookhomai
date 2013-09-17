@@ -2,16 +2,16 @@
 window.app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
-        when('/articles', {
+        when('/p', {
             templateUrl: 'views/articles/list.html'
         }).
-        when('/articles/create', {
+        when('/p/create', {
             templateUrl: 'views/articles/create.html'
         }).
-        when('/articles/:articleId/edit', {
+        when('/p/:articleId/edit', {
             templateUrl: 'views/articles/edit.html'
         }).
-        when('/articles/:articleId', {
+        when('/p/:articleId', {
             templateUrl: 'views/articles/view.html'
         }).
         when('/', {
