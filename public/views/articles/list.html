@@ -2,7 +2,8 @@
 	<ul class="articles unstyled">
 		<li data-ng-repeat="article in articles">
 			<span>{{article.created | date:'medium'}}</span> /
-			<span>{{article.user.name}}</span>
+			<span>{{article.user.name}}</span> /
+      <span><a ng-click="remove(article)">Delete</a></span>
 			<h2><a data-ng-href="#!/p/{{article._id}}">{{article.title}}</a></h2>
 			<div ng-bind-html-unsafe="article.content"></div>
 		</li>

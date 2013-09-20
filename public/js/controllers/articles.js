@@ -4,10 +4,11 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
     $scope.create = function() {
         var article = new Articles({
             title: this.title,
-            content: this.content
+            content: this.content,
+            source: 'web'
         });
         article.$save(function(response) {
-            $location.path("articles/" + response._id);
+            $location.path("p/" + response._id);
         });
 
         this.title = "";
@@ -15,13 +16,18 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
     };
 
     $scope.remove = function(article) {
-        article.$remove();  
+        if(!confirm('Are you sure you want to delete this item?')){ return false; }
+
+        article.$remove(function(){
+            $location.path("p/");
+        });
 
         for (var i in $scope.articles) {
             if ($scope.articles[i] == article) {
                 $scope.articles.splice(i, 1);
             }
         }
+
     };
 
     $scope.update = function() {

@@ -137,6 +137,7 @@ exports.handleRecording = function(request, response){
     article.user = user;
     article.content = 'Audio recording ' + request.param('RecordingDuration') + 's)';
     article.recordingUrl = recordingUrl;
+    article.source = "voice";
 
     article.save(function(err) {
         if (err) {
@@ -222,6 +223,7 @@ exports.sms = function(request, response) {
         var createNewPrayer = function(user){
           var article = new Article({title: body});
           article.user = user;
+          article.source = 'sms';
 
           article.save(function(err) {
               if (err) {

@@ -30,6 +30,9 @@ var ArticleSchema = new Schema({
     },
     recordingUrl: {
         type: String
+    },
+    source: {
+        type: String
     }
 });
 
