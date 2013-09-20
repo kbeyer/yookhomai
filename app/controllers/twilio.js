@@ -42,7 +42,7 @@ exports.voice = function(request, response){
 
     response.send('<Response>' +
                     '<Say>' + greeting + '</Say>' +
-                    '<Record maxLength="30" action="twilio/handle-recording" />' +
+                    '<Record maxLength="30" action="handle-recording" />' +
                   '</Response>');
   };
 
