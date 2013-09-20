@@ -9,17 +9,6 @@ var mongoose = require('mongoose'),
     _ = require('underscore'),
     twiliosig = require('twiliosig');
 
-function makeid()
-{
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for( var i=0; i < 5; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-}
-
 exports.voice = function(request, response){
   var from = request.param('From');
   console.log('Recieved a call from ' + from);

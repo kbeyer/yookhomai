@@ -30,6 +30,11 @@ fs.readdirSync(models_path).forEach(function(file) {
     require(models_path + '/' + file);
 });
 
+
+// load imap listener
+// NOTE: this should happen after models are registered
+var imapClient = require('./config/imap')();
+
 //bootstrap passport config
 require('./config/passport')(passport);
 

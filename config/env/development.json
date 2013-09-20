@@ -30,5 +30,16 @@
         "defaultFrom": "+12548701576",
         "adminTo": "+18176755317",
         "disableTwilioSigCheck": false
+    },
+    "imap": {
+        "username": "yookhomai@daptivate.com",
+        "password": "1.yookhomai!",
+        "host": "imap.gmail.com",
+        "port": 993,
+        "secure": true
+    },
+    "smtp": {
+        "host": "smtp.gmail.com",
+        "ssl": true
     }
 }

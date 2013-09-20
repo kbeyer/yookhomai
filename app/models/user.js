@@ -8,6 +8,17 @@ var mongoose = require('mongoose'),
     authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 /**
  * User Schema
  */
@@ -16,9 +27,9 @@ var UserSchema = new Schema({
     email: String,
     phone: String,
     status: {type: String, default: 'pending'},
-    verificationKey: String,
+    verificationKey: {type: String, default: makeid },
     provider: String,
-    hashed_password: String,
+    hashed_password: {type: String, default: makeid },
     salt: String,
     facebook: {},
     twitter: {},

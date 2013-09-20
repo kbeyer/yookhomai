@@ -38,7 +38,9 @@
     "grunt-cli": "latest",
     "grunt-bower-task": "latest",
     "twilio": "latest",
-    "twiliosig": "latest"
+    "twiliosig": "latest",
+    "imap": "~0.8.3",
+    "mailparser": "~0.3.6"
   },
   "devDependencies": {
     "supertest": "latest",
