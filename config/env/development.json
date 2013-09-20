@@ -1,7 +1,8 @@
 {
     "db": "mongodb://kyle:1.kyle.1@paulo.mongohq.com:10069/Yookhomai/",
     "app": {
-        "name": "Yookhomai"
+        "name": "Yookhomai",
+        "debug": true
     },
     "facebook": {
         "clientID": "APP_ID",

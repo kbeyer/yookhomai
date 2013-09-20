@@ -77,6 +77,8 @@ module.exports = function(app, passport, auth) {
     var twilioController = require('../app/controllers/twilio');
     app.get('/twilio/text', twilioController.sms);
     app.post('/twilio/text', twilioController.sms);
+    app.post('/twilio/voice', twilioController.voice);
+    app.post('/twilio/handle-recording', twilioController.handleRecording);
 
     //Home route
     var index = require('../app/controllers/index');

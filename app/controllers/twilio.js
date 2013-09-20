@@ -20,6 +20,137 @@ function makeid()
     return text;
 }
 
+exports.voice = function(request, response){
+  var from = request.param('From');
+  console.log('Recieved a call from ' + from);
+
+  response.header('Content-Type', 'text/xml');
+
+  var respondWithError = function(err){
+    console.error('Error processing voice call. Errors: ' + JSON.stringify(err));
+    return response.send('<Response><Say>Sorry. There was a problem.  Try again later.</Say></Response>');
+  };
+
+  var recordNewPrayer = function(user){
+    var greeting = 'Hi ';
+    if(user && user.name && user.name !== user.phone){
+      greeting += user.name + '.';
+    }else{
+      greeting += 'prayer warrior.';
+    }
+    greeting += '  Welcome to Yookhomai.  Record your prayer note after the tone.';
+
+    response.send('<Response>' +
+                    '<Say>' + greeting + '</Say>' +
+                    '<Record maxLength="30" action="twilio/handle-recording" />' +
+                  '</Response>');
+  };
+
+  // try to find user
+  User
+  .findOne({
+      phone: from
+  })
+  .exec(function(err, user) {
+      if (err){ return respondWithError(err); }
+      if (!user){
+        // NOTE: auto-creating new user for this phone number
+        var newUser = new User({name: from,
+                                email: from,
+                                phone: from,
+                                password: makeid(),
+                                verificationKey: makeid()});
+
+        newUser.provider = 'local';
+        newUser.save(function(err) {
+            if (err) {
+                return respondWithError(err);
+            }
+            recordNewPrayer(newUser);
+        });
+      }else{
+
+        // check if this is a new user who sent email
+        recordNewPrayer(user);
+      }
+
+  });
+
+};
+
+exports.handleRecording = function(request, response){
+  var from = request.param('From');
+  console.log('Handling recording from ' + from);
+
+  response.header('Content-Type', 'text/xml');
+
+  var respondWithError = function(err){
+    console.error('Error processing voice call. Errors: ' + JSON.stringify(err));
+    return response.send('<Response><Say>Sorry. There was a problem.  Try again later.</Say></Response>');
+  };
+
+  var respondWithSuccess = function(user, article){
+    var message = 'Saved! Thanks for using Yookhomai.';
+    switch(user.status){
+      case "pending":
+        message = message + ' Would you like us to text you a link to setup your account?';
+        break;
+      case "suspended":
+        message = 'Sorry, your account is currently suspended.';
+        break;
+    }
+    response.send('<Response><Say>' + message + '</Say></Response>');
+  };
+
+  var createNewPrayer = function(user){
+    var article = new Article({title: 'Phone recording on ' + (new Date()).toString() });
+    article.user = user;
+    article.content = '<a href="' + request.RecordingUrl + '">Play Recording</a>';
+
+    article.save(function(err) {
+        if (err) {
+            return respondWithError(err);
+        } 
+        else {
+            return respondWithSuccess(user, article);
+        }
+    });
+
+  };
+
+
+  // try to find user
+  User
+  .findOne({
+      phone: from
+  })
+  .exec(function(err, user) {
+      if (err){ return respondWithError(err); }
+      if (!user){
+        // NOTE: auto-creating new user for this phone number
+        var newUser = new User({name: from,
+                                email: from,
+                                phone: from,
+                                password: makeid(),
+                                verificationKey: makeid()});
+
+        newUser.provider = 'local';
+        newUser.save(function(err) {
+            if (err) {
+                return respondWithError(err);
+            }
+            createNewPrayer(newUser);
+        });
+      }else{
+
+        // check if this is a new user who sent email
+        createNewPrayer(user);
+      }
+
+  });
+
+};
+
 exports.sms = function(request, response) {
   if (twiliosig.valid(request, config.twilio.authToken) || config.twilio.disableTwilioSigCheck) {
 
