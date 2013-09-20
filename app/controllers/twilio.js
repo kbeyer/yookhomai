@@ -42,7 +42,7 @@ exports.voice = function(request, response){
 
     response.send('<Response>' +
                     '<Say>' + greeting + '</Say>' +
-                    '<Record maxLength="30" timeout="3" action="handle-recording" />' +
+                    '<Record maxLength="30" timeout="3" transcribeCallback="handle-transcription" action="handle-recording" />' +
                   '</Response>');
   };
 
@@ -78,9 +78,38 @@ exports.voice = function(request, response){
 
 };
 
+exports.handleTranscription = function(request, response){
+  var from = request.param('From');
+  var transcriptionStatus = request.param('TranscriptionStatus');
+  var transcriptionText = request.param('TranscriptionText');
+  var recordingUrl = request.param('RecordingUrl');
+  console.log('Handling transcription from ' + from + ' with status ' + transcriptionStatus + ' and recording url ' + recordingUrl);
+
+  Article.findOne({recordingUrl: recordingUrl}).exec(function(err, article) {
+      if (err){ console.error('Error while finding article by recordingUrl ' + err); }
+      if (!article){
+        console.log('No article with recordingUrl ' + recordingUrl);
+      }else{
+        // append text to existing article
+        article.content = transcriptionText;
+        article.save(function(err) {
+            if (err) {
+                console.error('Error saving article with transcriptionText');
+            } 
+            else {
+                console.log('Saved transcriptionText with article');
+            }
+        });
+      }
+
+  });
+
+};
+
 exports.handleRecording = function(request, response){
   var from = request.param('From');
-  console.log('Handling recording from ' + from);
+  var recordingUrl = request.param('RecordingUrl');
+  console.log('Handling recording from ' + from + ' with url ' + recordingUrl);
 
   response.header('Content-Type', 'text/xml');
 
@@ -105,7 +134,8 @@ exports.handleRecording = function(request, response){
   var createNewPrayer = function(user){
     var article = new Article({title: 'Phone recording on ' + (new Date()).toString() });
     article.user = user;
-    article.content = '<a href="' + request.param('RecordingUrl') + '">Play Recording (' + request.param('RecordingDuration') + 's)</a>';
+    article.content = 'Audio recording ' + request.param('RecordingDuration') + 's)';
+    article.recordingUrl = recordingUrl;
 
     article.save(function(err) {
         if (err) {

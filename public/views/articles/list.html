@@ -4,7 +4,7 @@
 			<span>{{article.created | date:'medium'}}</span> /
 			<span>{{article.user.name}}</span>
 			<h2><a data-ng-href="#!/p/{{article._id}}">{{article.title}}</a></h2>
-			<div>{{article.content}}</div>
+			<div ng-bind-html-unsafe="article.content"></div>
 		</li>
 	</ul>
 	<h1 data-ng-hide="!articles || articles.length">No prayers yet. <br> Want to <a href="/#!/p/create">Create One</a>?</h1>

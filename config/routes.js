@@ -79,6 +79,7 @@ module.exports = function(app, passport, auth) {
     app.post('/twilio/text', twilioController.sms);
     app.post('/twilio/voice', twilioController.voice);
     app.post('/twilio/handle-recording', twilioController.handleRecording);
+    app.post('/twilio/handle-transcription', twilioController.handleTranscription);
 
     //Home route
     var index = require('../app/controllers/index');

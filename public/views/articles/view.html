@@ -2,5 +2,10 @@
 	<span>{{article.created | date:'medium'}}</span> /
 	<span>{{article.user.name}}</span>
 	<h2>{{article.title}} <a data-ng-show="global.user._id == article.user._id" href="/#!/p/{{article._id}}/edit">edit</a></h2>
-	<div>{{article.content}}</div>
+  <div ng-show="article.recordingUrl">
+    <audio src="{{article.recordingUrl}}" controls>
+      <a href="{{article.recordingUrl}}">Play recording</a>
+    </audio>
+  </div>
+	<div ng-bind-html-unsafe="article.content"></div>
 </section>
