@@ -86,6 +86,9 @@ UserSchema.path('hashed_password').validate(function(hashed_password) {
 UserSchema.pre('save', function(next) {
     if (!this.isNew) return next();
 
+    //lowercase email
+    if(this.email){ this.email = this.email.toLowerCase(); }
+
     if (!validatePresenceOf(this.password) && authTypes.indexOf(this.provider) === -1)
         next(new Error('Invalid password'));
     else

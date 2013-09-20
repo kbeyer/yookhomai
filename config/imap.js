@@ -73,7 +73,7 @@ module.exports = function(){
     // try to find user by email
     User
     .findOne({
-        email: fromEmail
+        email: fromEmail.toLowerCase()
     })
     .exec(function(err, user) {
         if (err){ return handleError(err); }
