@@ -91,6 +91,7 @@ exports.handleTranscription = function(request, response){
         console.log('No article with recordingUrl ' + recordingUrl);
       }else{
         // append text to existing article
+        article.title = '(audio) ' + transcriptionText.substring(0, 25) + '..';
         article.content = 'Recording Transcription: ' + transcriptionText;
         article.save(function(err) {
             if (err) {
