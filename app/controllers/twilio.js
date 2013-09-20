@@ -42,7 +42,7 @@ exports.voice = function(request, response){
 
     response.send('<Response>' +
                     '<Say>' + greeting + '</Say>' +
-                    '<Record maxLength="30" action="handle-recording" />' +
+                    '<Record maxLength="30" timeout="3" action="handle-recording" />' +
                   '</Response>');
   };
 
@@ -105,7 +105,7 @@ exports.handleRecording = function(request, response){
   var createNewPrayer = function(user){
     var article = new Article({title: 'Phone recording on ' + (new Date()).toString() });
     article.user = user;
-    article.content = '<a href="' + request.RecordingUrl + '">Play Recording</a>';
+    article.content = '<a href="' + request.param('RecordingUrl') + '">Play Recording (' + request.param('RecordingDuration') + 's)</a>';
 
     article.save(function(err) {
         if (err) {
