@@ -107,6 +107,28 @@ exports.create = function(req, res) {
         });
     };
 
+    var findByEmail = function(){
+        User
+        .findOne({
+            email: formUser.email.toLowerCase()
+        })
+        .exec(function(err, existingUser) {
+            if (err){ return renderError(err); }
+            if(existingUser){
+                console.log('found existing user via email');
+                // update existing user
+                existingUser.name = formUser.name;
+                existingUser.phone = formUser.phone;
+                existingUser.password = formUser.password;
+                saveUser(existingUser);
+
+            }else{
+                // worst case just save what was entered
+                saveUser(formUser);
+            }
+        });
+    };
+
     // try to lookup user to associate new one with
     User
     .findOne({
@@ -115,7 +137,7 @@ exports.create = function(req, res) {
     .exec(function(err, existingUser) {
         if (err){ return renderError(err); }
         if(existingUser){
-            console.log('found existing user');
+            console.log('found existing user via phone');
             // update existing user
             existingUser.name = formUser.name;
             existingUser.email = formUser.email;
@@ -123,7 +145,8 @@ exports.create = function(req, res) {
             saveUser(existingUser);
 
         }else{
-            saveUser(formUser);
+            // if not found via phone ... try email
+            findByEmail();
         }
     });
 
