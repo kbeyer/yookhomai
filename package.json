@@ -40,7 +40,8 @@
     "twilio": "latest",
     "twiliosig": "latest",
     "imap": "~0.8.3",
-    "mailparser": "~0.3.6"
+    "mailparser": "~0.3.6",
+    "madmimi-node": "~0.1.6"
   },
   "devDependencies": {
     "supertest": "latest",

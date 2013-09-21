@@ -1,10 +1,11 @@
 //require the imap module
 var Imap = require('imap'),
     mongoose = require('mongoose'),
+    mimi = require('madmimi-node'),
     User = mongoose.model('User'),
     Article = mongoose.model('Article'),
     config = require('./config'),
-    MailParser = require("mailparser").MailParser,
+    MailParser = require('mailparser').MailParser,
     os = require('os'),
     fs = require('fs'),
     env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
@@ -22,6 +23,10 @@ module.exports = function(){
     tlsOptions: { rejectUnauthorized: false }
   });
 
+  var madmimi = new mimi(config.madmimi.user,config.madmimi.key);
+
+
+  console.log('Imap and mimi initiated for env: ' + env + ', host: ' + os.hostname());
 
   var handleError = function(via, err){
     console.error(via + ' ' + err);
@@ -35,10 +40,38 @@ module.exports = function(){
   var newAccountEmail = function(user, article){
     console.log('New account auto-created for ' + user.name + ' from email: ' + article.title);
     // TODO : send email notification of new account with setup link
+    var email_options = {
+      promotion_name:"NewAccountNotification",
+      recipient: '<' + user.email + '>',
+      subject:"Welcome! Yookhomai recieved your email.",
+      from:'Yookhomai <no-reply@yookhomai.com>',
+      raw_html:'<html><head><title>Welcome to Yookhomai!</title></head>' +
+                '<body>A new Yookhomai has been created from the email you just sent with Subject ' +
+                    article.title + '.  Finish setting up your account at ' +
+                    'http://app.yookhomai.com/signup?email=' + user.email +
+                    '[[tracking_beacon]]</body></html>'
+    };
+
+    madmimi.sendMail(email_options, function (transaction_id) {
+      console.log("Email transaction is: " + transaction_id);
+    });
   };
   var savedNotificationEmail = function(user, article){
     console.log('New article created via email for ' + user.name + ' with title: ' + article.title);
     // TODO : send email notification of saved prayer
+    var email_options = {
+      promotion_name:"EmailSavedNotification",
+      recipient: user.name + " <" + user.email + ">",
+      subject:"Saved! Yookhomai recieved your email.",
+      from:'Yookhomai <no-reply@yookhomai.com>',
+      raw_html:'<html><head><title>Saved!</title></head>' +
+                '<body>A new Yookhomai has been created from the email you just sent with Subject ' +
+                    article.title + '.  Pray on![[tracking_beacon]]</body></html>'
+    };
+
+    madmimi.sendMail(email_options, function (transaction_id) {
+      console.log("Email transaction is: " + transaction_id);
+    });
   };
   var errorNotificationEmail = function(mail, user, err){
     console.error('Error creating new article from email. Subject: ' + mail.subject + ' User: ' + user.name + ' err: ' + err);

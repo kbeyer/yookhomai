@@ -26,6 +26,7 @@ exports.signin = function(req, res) {
  */
 exports.signup = function(req, res) {
     var phone = req.query.phone;
+    var email = req.query.email;
 
     var renderSignup = function(user){
         res.render('users/signup', {
@@ -41,7 +42,10 @@ exports.signup = function(req, res) {
         });
     };
     
-    if(phone){
+    if(email){
+        renderSignup(new User({email: email}));
+    }
+    else if(phone){
         console.log('trying to autopopulate phone on signup page with: ' + phone);
         // try to lookup user to associate new one with
         User
