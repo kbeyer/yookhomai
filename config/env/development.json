@@ -32,8 +32,8 @@
         "disableTwilioSigCheck": false
     },
     "imap": {
-        "username": "yookhomai@daptivate.com",
-        "password": "1.yookhomai!",
+        "username": "create@yookhomai.com",
+        "password": "1.yookYook!",
         "host": "imap.gmail.com",
         "port": 993,
         "secure": true
