@@ -8,14 +8,17 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="/">Yookhomai</a>
+    <ul class="nav navbar-nav" data-ng-show="global.authenticated">
+      <li>
+        <a class="navbar-brand brand" href="/">Yookhomai</a>
+      </li>
+      <li>
+        <a class="navbar-brand new" href="#!/p/create"><i class="icon-plus-sign"></i></a>
+      </li>
+    </ul> 
   </div>
 
-  <ul class="nav navbar-nav" data-ng-show="global.authenticated">
-    <li>
-      <a href="#!/p/create"><i class="icon-plus-sign"></i> New</a>
-    </li>
-  </ul> 
+
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">

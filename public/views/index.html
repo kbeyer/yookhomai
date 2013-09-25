@@ -13,8 +13,8 @@
           </div>
           <div class="card-body" ng-bind-html-unsafe="article.content"></div>
           <div class="card-footer">
-            <span>{{article.created | date:'medium'}}</span> /
-            <span>{{article.user.name}}</span> /
+            <span>{{article.created | date:'short'}}</span> /
+            <span>{{article.user.name | limitTo:nameMaxCharacters }}</span> /
             <span>
               <div class="btn-group dropup">
                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">

@@ -6,9 +6,12 @@ body{
     padding-left:20px;
     margin-left:0
 }
-
+.navbar .nav>li>a.new {
+    font-size: 25px;
+    padding: 8px;
+}
 .content {
-    margin-top:50px;
+    margin-top:10px;
     width:100%
 }
 
