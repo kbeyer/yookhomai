@@ -8,11 +8,15 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
             source: 'web'
         });
         article.$save(function(response) {
-            $location.path("p/" + response._id);
+            // TODO: show list page or detail page after save?
+            //$location.path("p/" + response._id);
+            $location.path("p/");
         });
 
         this.title = "";
         this.content = "";
+
+        return false;
     };
 
     $scope.remove = function(article) {
@@ -27,6 +31,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
                 $scope.articles.splice(i, 1);
             }
         }
+        return false;
 
     };
 
@@ -38,8 +43,11 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         article.updated.push(new Date().getTime());
 
         article.$update(function() {
-            $location.path('articles/' + article._id);
+            // show list page after update
+            $location.path('p/');
         });
+
+        return false;
     };
 
     $scope.find = function(query) {

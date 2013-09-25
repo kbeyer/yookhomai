@@ -1,27 +1,16 @@
-<section data-ng-controller="ArticlesController" data-ng-init="findOne()">
-	<form class="form-horizontal" data-ng-submit="update()">
-		<div class="control-group">
-			<label class="control-label" for="title">Title</label>
-
-			<div class="controls">
-				<input type="text" data-ng-model="article.title" id="title" placeholder="Title" required>
-				</input>
-			</div>
+<section class="row" data-ng-controller="ArticlesController" data-ng-init="findOne()">
+	<form class="col-md-6">
+		<div class="input-group">
+			<input class="form-control" type="text" data-ng-model="article.title" id="title" placeholder="Title" required>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="content">Details</label>
-
-			<div class="controls">
-				<textarea data-ng-model="article.content" id="content" cols="30" rows="10" placeholder="Enter details...">
-				</textarea>
-			</div>
+		<br>
+		<div class="input-group">
+			<textarea class="form-control" data-ng-model="article.content" id="content" cols="30" rows="10" placeholder="Enter details..."></textarea>
 		</div>
-		<div class="control-group">
-			<div class="controls">
-				<input type="submit" class="btn">
-
-  			<button class="btn btn-danger" ng-click="remove(article)">Remove</button>
-			</div>
+		<br>
+		<div class="input-group">
+			<button type="submit" class="btn btn-primary btn-block" ng-click="update()">Save</button>
+  		<button class="btn btn-danger btn-block" ng-click="remove(article)">Remove</button>
 		</div>
 	</form>
 </section>
