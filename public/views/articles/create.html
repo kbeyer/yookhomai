@@ -1,21 +1,15 @@
-<section data-ng-controller="ArticlesController">
-	<form class="form-horizontal" data-ng-submit="create()">
-		<div class="control-group">
-			<label class="control-label" for="title">Title</label>
-			<div class="controls">
-				<input type="text" data-ng-model="title" id="title" placeholder="Title" required>
-			</div>
+<section class="row" data-ng-controller="ArticlesController">
+	<form class="col-md-6" role="form" data-ng-submit="create()">
+		<div class="input-group">
+			<input class="form-control" type="text" data-ng-model="title" id="title" placeholder="Title" required>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="content">Details</label>
-			<div class="controls">
-				<textarea data-ng-model="content" id="content" cols="30" rows="10" placeholder="Enter details..."></textarea>
-			</div>
+		<br>
+		<div class="input-group">
+			<textarea class="form-control" data-ng-model="content" id="content" cols="30" rows="10" placeholder="Enter details..."></textarea>
 		</div>
-		<div class="control-group">
-			<div class="controls">
-				<input type="submit" class="btn">
-			</div>
+		<br>
+		<div class="input-group">
+			<button type="submit" class="form-control btn btn-primary">Save</button>
 		</div>
 	</form>
 </section>
