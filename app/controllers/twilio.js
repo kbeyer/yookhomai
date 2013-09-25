@@ -211,6 +211,7 @@ exports.sms = function(request, response) {
 
         var createNewPrayer = function(user){
           var article = new Article({title: body});
+          article.content = body; // save full body to content... for detailed editing
           article.user = user;
           article.source = 'sms';
 
