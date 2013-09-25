@@ -1,28 +1,49 @@
-<div class="navbar-inner" data-ng-controller="HeaderController">
-    <ul class="nav">
-        <li>
-            <a class="brand" href="/">Yookhomai</a>
-        </li>
+
+<div class="navbar-inner" ng-controller="HeaderController">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">Yookhomai</a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
         <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
             <a href="#!/{{item.link}}">{{item.title}}</a>
         </li>
     </ul>
-    <ul class="nav pull-right" data-ng-hide="global.authenticated">
-        <li><a href="signup">Signup</a>
+    <form data-ng-show="global.searchEnabled" class="navbar-form navbar-left" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Go</button>
+    </form>
+
+    <ul class="nav navbar-nav navbar-right" data-ng-hide="global.authenticated">
+        <li>
+            <a href="signup">Signup</a>
         </li>
         <li class="divider-vertical"></li>
-        <li><a href="signin">Signin</a>
+        <li>
+            <a href="signin">Signin</a>
         </li>
     </ul>
-    <ul class="nav pull-right" data-ng-show="global.authenticated">
+    <ul class="nav navbar-nav navbar-right" data-ng-show="global.authenticated">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-				{{global.user.name}} <b class="caret"></b>
-			</a>
+                {{global.user.name}} <b class="caret"></b>
+            </a>
             <ul class="dropdown-menu">
                 <li><a href="/signout">Signout</a>
                 </li>
             </ul>
         </li>
     </ul>
+  </div><!-- /.navbar-collapse -->
 </div>

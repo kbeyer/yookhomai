@@ -1,7 +1,43 @@
 h1 {
-    text-align:center
+    text-align:left;
 }
 
-ul.articles li:not(:last-child) {
-    border-bottom:1px solid #ccc
+ul.articles{
+  list-style: none;
+  padding: 0;
+}
+ul.articles li{
+  padding: 0;
+  margin: 0;
+}
+ul.articles li .card{
+  height: 300px;
+  margin: 15px;
+  padding: 15px;
+  overflow: hidden;
+  border: solid 1px #eee;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px #eee;
+}
+.card h2{
+  font-size: 20px;
+  margin-top: 0;
+  height: 25px;
+  overflow: hidden;
+}
+.card .card-header{
+  margin-bottom: 7px;
+  border-bottom: solid 1px #eee;
+}
+.card .card-body{
+  height: 195px;
+  overflow-y: auto;
+  font-size: 1.1em;
+  color: #999;
+}
+.card .card-footer{
+  margin-top: 10px;
+  padding-top: 7px;
+  border-top: solid 1px #eee;
+  color: #ddd;
 }

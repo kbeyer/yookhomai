@@ -1,19 +1,19 @@
 extends auth
 
 block auth
-  form.signin.form-horizontal(action="/users/session", method="post")
+  form.signin(action="/users/session", method="post")
     p.error= message
-    .control-group
-      label.control-label(for='email') Email
-      .controls
-        input#email(type='text', name="email", placeholder='Email')
+    .input-group.input-group-lg
+      input#email(type='text', name="email", class='form-control', placeholder='Email')
 
-    .control-group
-      label.control-label(for='password') Password
-      .controls
-        input#password(type='password', name="password", placeholder='Password')
+    br
+    
+    .input-group.input-group-lg
+      input#password(type='password', name="password", class='form-control', placeholder='Password')
 
-    .form-actions
+    br
+      
+    .input-group.input-group-lg
       button.btn.btn-primary(type='submit') Sign in
       &nbsp;
       | or&nbsp;
