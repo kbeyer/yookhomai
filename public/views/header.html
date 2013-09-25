@@ -11,11 +11,16 @@
     <a class="navbar-brand" href="/">Yookhomai</a>
   </div>
 
+  <ul class="nav navbar-nav" data-ng-show="global.authenticated">
+    <li>
+      <a href="#!/p/create"><i class="icon-plus-sign"></i> New</a>
+    </li>
+  </ul> 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
         <li data-ng-repeat="item in menu" data-ng-show="global.user" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
-            <a href="#!/{{item.link}}">{{item.title}}</a>
+            <a href="#!/{{item.link}}" class="{{item.class}}">{{item.title}}</a>
         </li>
     </ul>
     <form data-ng-show="global.searchEnabled" class="navbar-form navbar-left" role="search">
@@ -44,6 +49,7 @@
                 </li>
             </ul>
         </li>
+        <li class="divider-vertical"></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 </div>

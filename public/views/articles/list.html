@@ -10,7 +10,18 @@
 					<div class="card-footer">
 						<span>{{article.created | date:'medium'}}</span> /
 						<span>{{article.user.name}}</span> /
-			      <span><a ng-click="remove(article)">Delete</a></span>
+						<span>
+							<div class="btn-group dropup">
+							  <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+							    <i class="icon-cog"></i>
+							  </button>
+							  <ul role="menu" class="dropdown-menu pull-right">
+			            <li data-ng-show="global.user._id == article.user._id" ><a href="/#!/p/{{article._id}}/edit"><i class="icon-edit"></i> Edit</a></li>
+			            <li class="divider"></li>
+			            <li data-ng-show="global.user._id == article.user._id" ><a data-ng-click="remove(article)"><i class="icon-remove-circle"></i>  Remove</a></li>
+			          </ul>
+							</div>
+						</span>
 			     </div>
 			  </div>
 			</li>

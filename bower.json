@@ -1,19 +1,20 @@
 {
-    "name": "mean",
-    "version": "1.0.0",
-    "dependencies": {
-        "bootstrap": "3.0.0",
-        "angular": "~1.0.8",
-        "angular-resource": "~1.0.8",
-        "angular-cookies": "~1.0.8",
-        "angular-bootstrap": "~0.6.0",
-        "angular-ui-utils": "0.0.4",
-        "json3": "~3.2.4",
-        "jquery": "~1.9.1"
-    },
-    "exportsOverride": {
-        "angular-ui-utils": {
-            "modules": "modules/route/route.js"
-        }
+  "name": "mean",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "3.0.0",
+    "angular": "~1.0.8",
+    "angular-resource": "~1.0.8",
+    "angular-cookies": "~1.0.8",
+    "angular-bootstrap": "~0.6.0",
+    "angular-ui-utils": "0.0.4",
+    "json3": "~3.2.4",
+    "jquery": "~1.9.1",
+    "font-awesome": "~3.2.1"
+  },
+  "exportsOverride": {
+    "angular-ui-utils": {
+      "modules": "modules/route/route.js"
     }
+  }
 }
