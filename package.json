@@ -1,9 +1,9 @@
 {
-  "name": "mean",
-  "description": "MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
+  "name": "yookhomai",
+  "description": "Yookhomai",
   "version": "1.0.0",
   "private": false,
-  "author": "Amos Haviv",
+  "author": "Daptivate",
   "repository": {
     "type": "git",
     "url": "https://github.com/linnovate/mean.git"
@@ -39,10 +39,10 @@
     "grunt-bower-task": "latest",
     "twilio": "latest",
     "twiliosig": "latest",
-    "imap": "~0.8.3",
-    "mailparser": "~0.3.6",
-    "madmimi-node": "~0.1.6",
-    "uuid-v4": "~0.1.0"
+    "imap": "latest",
+    "mailparser": "latest",
+    "madmimi-node": "latest",
+    "uuid-v4": "latest"
   },
   "devDependencies": {
     "supertest": "latest",
@@ -52,6 +52,6 @@
     "grunt-nodemon": "latest",
     "grunt-concurrent": "latest",
     "grunt-mocha-test": "latest",
-    "grunt-node-inspector": "~0.1.0"
+    "grunt-node-inspector": "latest"
   }
 }
