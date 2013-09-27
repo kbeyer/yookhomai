@@ -42,7 +42,6 @@
     "imap": "~0.8.3",
     "mailparser": "~0.3.6",
     "madmimi-node": "~0.1.6",
-    "pass-reset": "~0.1.2",
     "uuid-v4": "~0.1.0"
   },
   "devDependencies": {

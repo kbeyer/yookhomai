@@ -6,10 +6,12 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     PasswordResetToken = mongoose.model('PasswordResetToken'),
     uuid       = require('uuid-v4'),
+    twilio = require('twilio'),
     config = require('../../config/config');
 
 
 var madmimi = new mimi(config.madmimi.user,config.madmimi.key);
+var twilioClient = twilio(config.twilio.accountSid, config.twilio.authToken);
 
 /**
  * Show forgot password form
@@ -38,6 +40,8 @@ exports.sendReset = function(req, res){
   var renderSuccess = function(email, phone){
     if(phone){
       // show instructions for sms reset
+      req.flash('success', 'Success!  An text message was sent to your phone with password reset instructions.');
+      res.render('users/forgot');
     }else{
       // show instructions for email reset
       req.flash('success', 'Success!  An email was sent with password reset instructions.');
@@ -62,18 +66,41 @@ exports.sendReset = function(req, res){
     madmimi.sendMail(email_options, function (transaction_id) {
       console.log("Email transaction for password reset is: " + transaction_id);
       // all done... render success message for email
-      renderSuccess(email, false);
+      renderSuccess(user.email, false);
+    });
+  };
+
+  var sendResetSms = function(user, tokenModel){
+    var resetUrl = 'http://app.yookhomai.com/reset/' + tokenModel.token;
+     //Send an SMS text message when loaded
+    twilioClient.sendSms({
+        to: user.phone, // Any number Twilio can deliver to
+        from: config.twilio.defaultFrom, // A number you bought from Twilio and can use for outbound communication
+        body: 'Reset your Yookhomai password by visiting ' + resetUrl // body of the SMS message
+
+    }, function(err, responseData) { //this function is executed when a response is received from Twilio
+        if (!err) { // "err" is an error received during the request, if any
+          console.log('Sent password reset. from: ' + responseData.from + ' body: ' + responseData.body ); // outputs "+14506667788"
+          renderSuccess(false, user.phone);
+        }else{
+           renderError(err);
+        }
     });
   };
 
   // create token for user
-  var createToken = function(user){
+  var createToken = function(user, viaEmail){
     var guid = uuid();
     var resetToken = new PasswordResetToken({key: user.id, token: guid});
     resetToken.save(function(err, newToken){
       if (err){ return renderError(err); }
-      // send email with token
-      sendResetEmail(user, newToken);
+      if(viaEmail){
+        // send email with token
+        sendResetEmail(user, newToken);
+      }else{
+        // send sms with token
+        sendResetSms(user, newToken);
+      }
     });
   };
 
@@ -91,7 +118,7 @@ exports.sendReset = function(req, res){
                   renderError('Account status is pending.');
               }else{
                   // YAY ... found user ... now create token
-                  createToken(existingUser);
+                  createToken(existingUser, true);
               }
           }else{
               // worst case just save what was entered
@@ -116,7 +143,7 @@ exports.sendReset = function(req, res){
                 renderError('Account status is pending.');
             }else{
                 // YAY ... found user ... now create token
-                createToken(existingUser);
+                createToken(existingUser, false);
             }
 
         }else{
