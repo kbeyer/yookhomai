@@ -37,12 +37,7 @@
     "grunt": "latest",
     "grunt-cli": "latest",
     "grunt-bower-task": "latest",
-    "twilio": "latest",
-    "twiliosig": "latest",
-    "imap": "latest",
-    "mailparser": "latest",
-    "madmimi-node": "latest",
-    "uuid-v4": "latest"
+    "twilio": "latest"
   },
   "devDependencies": {
     "supertest": "latest",
