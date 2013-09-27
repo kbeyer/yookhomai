@@ -39,7 +39,7 @@
     "grunt-bower-task": "latest",
     "twilio": "latest",
     "twiliosig": "latest",
-    "imap": "~0.8.3",
+    "imap": "https://github.com/mscdex/node-imap/tarball/master",
     "mailparser": "~0.3.6",
     "madmimi-node": "~0.1.6",
     "uuid-v4": "~0.1.0"
