@@ -53,6 +53,34 @@ module.exports = function(app, passport) {
 
         //connect flash for flash messages
         app.use(flash());
+        // hookup express-messages helper to render flash messages
+        app.use(function (req, res, next) {
+            // TODO: render jade template for messages
+            res.locals.messages = function(){
+                var buf = []
+                  , messages = req.flash()
+                  , types = Object.keys(messages)
+                  , len = types.length;
+                if (!len) return '';
+                buf.push('<div class="container" id="messages">');
+                for (var i = 0; i < len; ++i) {
+                  var type = types[i]
+                    , msgs = messages[type];
+                  if (msgs) {
+                    buf.push('  <ul class="col-md-12 ' + type + '">');
+                    for (var j = 0, l = msgs.length; j < l; ++j) {
+                      var msg = msgs[j];
+                      buf.push('    <li class="alert alert-' + type + '">' + msg + '</li>');
+                    }
+                    buf.push('  </ul>');
+                  }
+                }
+                buf.push('</div>');
+                return buf.join('\n');
+            };
+
+            next();
+        });
 
         //dynamic helpers
         app.use(helpers(config.app.name));

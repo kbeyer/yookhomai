@@ -1,14 +1,16 @@
 extends auth
 
 block auth
+  h2 Sign in
+  br
   form.signin(action="/users/session", method="post")
     p.error= message
-    .input-group.input-group-lg
+    .input-group.input-group-lg.required
       input#email(type='text', name="email", class='form-control', placeholder='Email')
 
     br
     
-    .input-group.input-group-lg
+    .input-group.input-group-lg.required
       input#password(type='password', name="password", class='form-control', placeholder='Password')
 
     br
@@ -17,4 +19,9 @@ block auth
       button.btn.btn-primary(type='submit') Sign in
       &nbsp;
       | or&nbsp;
-      a.show-signup(href="/signup") Sign up
+      a.show-signup(href="/signup") Create an account
+
+    br
+
+    .input-group.input-group-lg
+      a.reset-password(href="/forgot") I forgot my password

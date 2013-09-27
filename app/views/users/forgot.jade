@@ -1,0 +1,31 @@
+extends auth
+
+block auth
+  h2 Trouble signing in?
+  p No worries. 
+  p Enter your email address or phone number below and you'll see password reset instructions quicker than you can say zippy.
+  br
+
+  form.forgot(action="/forgot", method="post")
+    p.error= message
+    .input-group.input-group-lg.required
+      input#email(type='text', name="email", class='form-control', placeholder='Your email address')
+      
+    br
+    
+    p OR
+
+    br
+
+    .input-group.input-group-lg.required
+      input#phone(type='text', name="phone", class='form-control', placeholder='Your phone number')
+      
+    br
+
+    .input-group.input-group-lg
+      button.btn.btn-primary(type='submit') Send instructions
+      a.signin.btn.btn-link(href="/signin") Cancel
+
+    br
+
+    p.text-muted Note - If you don't recieve an email within a few minutes please check your spam filter. The email will be coming from no-reply@app.yookhomai.com. 

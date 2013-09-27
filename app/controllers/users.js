@@ -22,6 +22,16 @@ exports.signin = function(req, res) {
 };
 
 /**
+ * Show forgot password form
+ */
+exports.forgot = function(req, res) {
+    res.render('users/forgot', {
+        title: 'Forget your password?',
+        message: req.flash('error')
+    });
+};
+
+/**
  * Show sign up form
  */
 exports.signup = function(req, res) {
@@ -116,12 +126,17 @@ exports.create = function(req, res) {
             if (err){ return renderError(err); }
             if(existingUser){
                 console.log('found existing user via email');
-                // update existing user
-                existingUser.name = formUser.name;
-                existingUser.phone = formUser.phone;
-                existingUser.password = formUser.password;
-                saveUser(existingUser);
-
+                if(existingUser.status == 'pending'){
+                    // update existing user
+                    existingUser.name = formUser.name;
+                    existingUser.phone = formUser.phone;
+                    existingUser.password = formUser.password;
+                    saveUser(existingUser);
+                }else{
+                    return res.render('users/signup', {
+                        message: 'You already have an account, please sign in.'
+                    });
+                }
             }else{
                 // worst case just save what was entered
                 saveUser(formUser);
@@ -138,11 +153,19 @@ exports.create = function(req, res) {
         if (err){ return renderError(err); }
         if(existingUser){
             console.log('found existing user via phone');
-            // update existing user
-            existingUser.name = formUser.name;
-            existingUser.email = formUser.email;
-            existingUser.password = formUser.password;
-            saveUser(existingUser);
+
+            // check if existing user has already set password
+            if(existingUser.status == 'pending'){
+                // update existing user
+                existingUser.name = formUser.name;
+                existingUser.email = formUser.email;
+                existingUser.password = formUser.password;
+                saveUser(existingUser);
+            }else{
+                return res.render('users/signup', {
+                    message: 'You already have an account, please sign in.'
+                });
+            }
 
         }else{
             // if not found via phone ... try email

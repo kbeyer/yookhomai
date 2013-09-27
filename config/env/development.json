@@ -45,5 +45,8 @@
     "madmimi": {
         "user": "kyle@yookhomai.com",
         "key": "eae2dc814e5db101d3a65b035f6ba55a"
+    },
+    "auth":{
+        "passwordResetTimeout": 86400000
     }
 }

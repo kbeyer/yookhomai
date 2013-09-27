@@ -1,0 +1,25 @@
+extends auth
+
+block auth
+  h2 #{title}
+  p Choose a new password below.
+  br
+
+  form.forgot(action="/reset", method="post")
+    p.error= message
+    input(type="hidden", name="token", value="#{token}")
+
+    .input-group.input-group-lg
+      input#password(type='password', name="password", class='form-control', value="", placeholder='Pick a new password')
+      
+    br
+
+    .input-group.input-group-lg
+      input#confirm(type='password', name="confirm", class='form-control', value="", placeholder='Confirm new password')
+      
+    br
+
+    .input-group.input-group-lg
+      button.btn.btn-primary(type='submit') Reset password
+      a.signin.btn.btn-link(href="/signin") Cancel
+

@@ -6,6 +6,11 @@ module.exports = function(app, passport, auth) {
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
     app.get('/signout', users.signout);
+    var passwords = require('../app/controllers/passwords');
+    app.get('/forgot', passwords.forgot);
+    app.post('/forgot', passwords.sendReset);
+    app.get('/reset/:token', passwords.resetForm);
+    app.post('/reset', passwords.doReset);
 
     //Setting up the users api
     app.post('/users', users.create);
