@@ -158,7 +158,7 @@ exports.create = function(req, res) {
             if(existingUser.status == 'pending'){
                 // update existing user
                 existingUser.name = formUser.name;
-                existingUser.email = formUser.email;
+                existingUser.email = formUser.email.toLowerCase();
                 existingUser.password = formUser.password;
                 saveUser(existingUser);
             }else{

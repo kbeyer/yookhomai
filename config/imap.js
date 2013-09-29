@@ -113,7 +113,7 @@ module.exports = function(){
         if (!user){
           // NOTE: auto-creating new user for this email
           var newUser = new User({name: fromName ? fromName : fromEmail,
-                                  email: fromEmail,
+                                  email: fromEmail.toLowerCase(),
                                   phone: fromEmail,
                                   password: 'asdfasdfasdf'});
 
