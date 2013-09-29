@@ -1,0 +1,12 @@
+
+<section class="slides-container" ng-controller="SlidesController" data-ng-init="slides()">
+  <carousel interval="myInterval">
+    <slide ng-repeat="slide in slides" active="slide.active">
+      <!--img ng-src="{{slide.image}}" style="margin:auto;" alt="{{slide.title}}"-->
+      <div class="carousel-caption">
+        <p>{{slide.title}}</p>
+      </div>
+    </slide>
+  </carousel>
+</section>
+

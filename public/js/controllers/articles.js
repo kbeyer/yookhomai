@@ -57,6 +57,30 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         });
     };
 
+    $scope.slides = function(){
+
+        var renderShow = function(){
+            // Setup Slideshow
+            $('#slider4').responsiveSlides({
+                auto: false,
+                pager: false,
+                nav: true,
+                speed: 500,
+                namespace: 'slides',
+                before: function () {
+                  //$('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                  //$('.events').append("<li>after event fired.</li>");
+                }
+            });
+        };
+        Articles.query(null, function(articles) {
+            $scope.articles = articles;
+            renderShow();
+        });
+    };
+
     $scope.findOne = function() {
         Articles.get({
             articleId: $routeParams.articleId

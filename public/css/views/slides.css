@@ -1,0 +1,36 @@
+
+.slides-container {
+  background: #222 url("/img/slides-bg.png") repeat;
+  font: 14px/20px Helvetica, Arial, sans-serif;
+  margin: auto auto;
+  /*max-width: 800px;*/
+  text-align: center;
+  text-shadow: 0 -2px 1px #000;
+  -webkit-font-smoothing: antialiased;
+
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  color: #eeee;
+  z-index: 9999;
+
+}
+
+.slides-container .carousel,
+.slides-container .carousel-inner > .item,
+.slides-container .carousel-inner{
+  height: 100%;
+}
+
+.slides-container .carousel-control{
+  width: 20%;
+  padding-top: 30%;
+}
+
+.carousel-caption{
+  font-size: 30px;
+  bottom: 40%;
+  line-height: 1.2em;
+}

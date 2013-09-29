@@ -3,7 +3,7 @@ window.app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
         when('/p', {
-            templateUrl: 'views/articles/list.html'
+            templateUrl: 'views/articles/slides.html'
         }).
         when('/p/create', {
             templateUrl: 'views/articles/create.html'
