@@ -34,9 +34,6 @@
     "view-helpers": "latest",
     "mean-logger": "latest",
     "forever": "latest",
-    "grunt": "latest",
-    "grunt-cli": "latest",
-    "grunt-bower-task": "latest",
     "twilio": "latest",
     "twiliosig": "latest",
     "imap": "latest",
@@ -52,6 +49,10 @@
     "grunt-nodemon": "latest",
     "grunt-concurrent": "latest",
     "grunt-mocha-test": "latest",
-    "grunt-node-inspector": "latest"
+    "grunt-node-inspector": "latest",
+    "grunt": "latest",
+    "grunt-cli": "latest",
+    "grunt-bower-task": "latest",
+    "grunt-modernizr": "latest"
   }
 }

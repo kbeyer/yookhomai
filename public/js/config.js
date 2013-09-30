@@ -2,6 +2,9 @@
 window.app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
+        when('/s', {
+            templateUrl: 'views/articles/swipe.html'
+        }).
         when('/p', {
             templateUrl: 'views/articles/slides.html'
         }).

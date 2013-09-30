@@ -30,7 +30,22 @@
 }
 
 .carousel-caption{
-  font-size: 30px;
-  bottom: 40%;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 2em;
+  width: 80%;
+  overflow: hidden;
+  text-align: left;
+  padding: 0;
+}
+.carousel-caption h3{
+  font-size: 4.0em;
+  line-height: 1.5em;
+}
+.carousel-caption p{
+  font-size: 2.0em;
   line-height: 1.2em;
+  color: #ccc;
+  overflow-y: scroll;
 }

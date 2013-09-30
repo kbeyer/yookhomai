@@ -1,0 +1,23 @@
+
+<section swipable-slides class="slides-container" ng-controller="SlidesController" data-ng-init="slides()">
+  <div id="slide-carousel" class="carousel slide">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div ng-repeat="slide in slides" class="item" ng-class="{active: $index==0}">
+        <div class="carousel-caption">
+          <h3>{{slide.title}}</h3>
+          <p ng-bind-html-unsafe="slide.content"></p>
+        </div>
+        <!--img src="{{slide.imageUrl}}" alt="{{slide.title}}"-->
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#slide-carousel" data-slide="prev">
+      <span class="icon-prev"></span>
+    </a>
+    <a class="right carousel-control" href="#slide-carousel" data-slide="next">
+      <span class="icon-next"></span>
+    </a>
+  </div>
+</section>

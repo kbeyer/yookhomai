@@ -4,5 +4,8 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
     $scope.menu = [{
         "title": "Pray",
         "link": "p"
+    },{
+        "title": "Swipe",
+        "link": "s"
     }];
 }]);
