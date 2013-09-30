@@ -5,7 +5,7 @@
     <div class="carousel-inner">
       <div ng-repeat="slide in slides" class="item" ng-class="{active: $index==0}">
         <div class="carousel-caption">
-          <h3>{{slide.title}}</h3>
+          <h3>{{slide.title}} ({{swipeEnabled}})</h3>
           <p ng-bind-html-unsafe="slide.content"></p>
         </div>
         <!--img src="{{slide.imageUrl}}" alt="{{slide.title}}"-->

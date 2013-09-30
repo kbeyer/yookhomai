@@ -32,11 +32,11 @@ angular.module('mean.slides').controller('SlidesController', ['$scope', '$routeP
   };
 
   //Swipe enable Carousel
-  var buildSwipe = function() {
+  var buildSwipe = function(scope) {
     // hide carousel controls
     $('.carousel-control').hide();
     //Initialize Swipe.js
-    $scope.mySwipe = new Swipe($("#slide-carousel .carousel-inner")[0], {
+    scope.mySwipe = new Swipe($("#slide-carousel .carousel-inner")[0], {
       callback: function(event, index, elem) {
         //updateNav(index);
         //loadImg(index + 1);
@@ -49,7 +49,7 @@ angular.module('mean.slides').controller('SlidesController', ['$scope', '$routeP
   var directiveDefinitionObject = {
     link: function postLink(scope, iElement, iAttrs) {
       if(scope.swipeEnabled){
-        buildSwipe();
+        buildSwipe(scope);
       }else{
         buildCarousel();
       }
