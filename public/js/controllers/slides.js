@@ -28,7 +28,7 @@ angular.module('mean.slides').controller('SlidesController', ['$scope', '$routeP
     //Initialize Swipe.js
     scope.mySwipe = new Swipe(document.getElementById('slide-carousel'), {
         startSlide: 1,
-        speed: 400,
+        speed: 500,
         auto: 10000,
         continuous: true,
         disableScroll: false,
