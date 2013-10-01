@@ -198,14 +198,16 @@ exports.sms = function(request, response) {
         };
 
         var respondWithSuccess = function(user, article){
-          var message = 'Saved! Thanks for using Yookhomai.';
+          var message = 'Saved!';
           switch(user.status){
             case "pending":
-              message = message + ' Now you can setup and manage your account at http://app.yookhomai.com/signup?phone=' + encodeURIComponent(from);
+              message = message + ' Setup your Yookhomai account at http://app.yookhomai.com/signup?phone=' + encodeURIComponent(from);
               break;
             case "suspended":
               message = 'Sorry, your account is currently suspended.';
               break;
+            default:
+              message += ' Pray now ' + 'http://app.yookhomai.com/pray';
           }
           response.send('<Response><Sms>' + message + '</Sms></Response>');
         };
