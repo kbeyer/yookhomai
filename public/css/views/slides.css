@@ -5,11 +5,10 @@
 
   width: 100%;
   height: 100%;
-  padding: 3.5em 5em;
 }
 
 .swipe-content{
-  width: 95%;
+  padding: 0 5%;
   overflow: hidden;
   
 }
@@ -18,6 +17,7 @@
   -webkit-font-smoothing: antialiased;
   color: #274478;
   line-height: 1.5em;
+  margin: 4% 0 2%;
 }
 .swipe-content section.details{
   font-size: 150%;
