@@ -1,4 +1,6 @@
 
+html{ font-size: 100%; }
+
 body.pray-page{
   padding: 0!important; 
   /* TODO: create alternate theme with image bg
@@ -8,6 +10,12 @@ body.pray-page{
   background-position:top left;
   overflow: hidden;
 }
+
+/* responsive font sizes */
+@media (max-width: 640px) { h1 {font-size:2.4rem;} .swipe-content section.details{ font-size: 1.1rem; } }
+@media (min-width: 640px) { h1 {font-size:3.5rem;} .swipe-content section.details{ font-size: 1.3rem; } }
+@media (min-width:960px) { h1 {font-size:4rem;} .swipe-content section.details{ font-size: 1.8rem; } }
+@media (min-width:1100px) { h1 {font-size:4.5rem;} .swipe-content section.details{ font-size: 2.0rem; } }
 
 .swipe {
   font: 14px/20px Helvetica, Arial, sans-serif;
@@ -43,7 +51,6 @@ body.pray-page{
   margin: 4% 0 2%;
 }
 .swipe-content section.details{
-  font-size: 150%;
   line-height: 1.2em;
   color: #333!important;
   -webkit-font-smoothing: antialiased;
