@@ -1,6 +1,5 @@
 
 .swipe {
-  background: #222 url("/img/slides-bg.png") repeat;
   font: 14px/20px Helvetica, Arial, sans-serif;
   text-align: left;
 
@@ -12,21 +11,29 @@
 .swipe-content{
   width: 95%;
   overflow: hidden;
-
+  
 }
-.swipe-content h3{
-  font-size: 4.0em;
-  text-shadow: 0 -2px 1px #000;
+.swipe-content h1{
+  text-shadow: 0 -2px 3px #A6C3FF;
   -webkit-font-smoothing: antialiased;
-  color: #ccc;
+  color: #274478;
   line-height: 1.5em;
 }
-.swipe-content p{
-  font-size: 2.0em;
+.swipe-content section.details{
+  font-size: 150%;
   line-height: 1.2em;
-  color: #cdcdcd!important;
+  color: #333!important;
   -webkit-font-smoothing: antialiased;
   overflow-y: scroll;
+  width: 95%;
+  padding: 1.0em;
+  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(249,249,249,0.13) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(249,249,249,0.13))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(249,249,249,0.13) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(249,249,249,0.13) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(249,249,249,0.13) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(249,249,249,0.13) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#21f9f9f9',GradientType=0 ); /* IE6-9 */
 }
 
 #console {
@@ -43,7 +50,6 @@
   overflow: hidden;
   visibility: hidden;
   position: relative;
-  top: -50px;
 }
 .swipe-wrap {
   overflow: hidden;
