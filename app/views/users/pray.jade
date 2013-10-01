@@ -1,7 +1,7 @@
 !!! 5
 html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.facebook.com/2008/fbml', itemscope='itemscope', itemtype='http://schema.org/Product')
   include ../includes/head
-  body(style='padding: 0!important; background: url(/img/sunrise.jpg); background-size: 100%;')
+  body.pray-page
 
     div.swipe(id='slider')
       div.swipe-wrap
@@ -24,4 +24,15 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
         callback: function(index, elem) {},
         transitionEnd: function(index, elem) {}
       });
+
+      var Height = $(window).height();
+      var Width = $(window).width();
+      var HW = Width/Height;
+
+      if(HW<1){
+            $("body.pray-page").css("background-size","auto 100%");
+          }
+          else if(HW>1){
+            $("body.pray-page").css("background-size","100% auto");
+          }
     

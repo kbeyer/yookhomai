@@ -8,7 +8,7 @@ body{
 }
 .navbar .nav>li>a.new {
     font-size: 25px;
-    padding: 12px;
+    padding: 5px 15px;
 }
 .content {
     margin-top:10px;
