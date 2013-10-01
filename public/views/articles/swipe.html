@@ -1,8 +1,8 @@
 
 <section swipable-slides class="slides-container" ng-controller="SlidesController" data-ng-init="slides()">
-  <div id="slide-carousel" class="carousel slide">
+  <div id="slide-carousel" class="carousel slide swipe">
     <!-- Wrapper for slides -->
-    <div class="carousel-inner">
+    <div id="swipe-wrapper" class="carousel-inner swipe-wrap">
       <div ng-repeat="slide in slides" class="item" ng-class="{active: $index==0}">
         <div class="carousel-caption">
           <h3>{{slide.title}} ({{swipeEnabled}})</h3>

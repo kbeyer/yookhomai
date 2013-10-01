@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     config = require('../../config/config'),
     async = require('async'),
     _ = require('underscore'),
+    uuid       = require('uuid-v4'),
     twiliosig = require('twiliosig');
 
 exports.voice = function(request, response){
@@ -47,8 +48,8 @@ exports.voice = function(request, response){
         var newUser = new User({name: from,
                                 email: from,
                                 phone: from,
-                                password: makeid(),
-                                verificationKey: makeid()});
+                                password: uuid(),
+                                verificationKey: uuid()});
 
         newUser.provider = 'local';
         newUser.save(function(err) {
@@ -152,8 +153,8 @@ exports.handleRecording = function(request, response){
         var newUser = new User({name: from,
                                 email: from,
                                 phone: from,
-                                password: makeid(),
-                                verificationKey: makeid()});
+                                password: uuid(),
+                                verificationKey: uuid()});
 
         newUser.provider = 'local';
         newUser.save(function(err) {
@@ -238,8 +239,8 @@ exports.sms = function(request, response) {
               var newUser = new User({name: from, 
                                       email: from, 
                                       phone: from, 
-                                      password: makeid(), 
-                                      verificationKey: makeid()});
+                                      password: uuid(), 
+                                      verificationKey: uuid()});
 
               newUser.provider = 'local';
               newUser.save(function(err) {

@@ -1,16 +1,6 @@
 angular.module('mean.slides').controller('SlidesController', ['$scope', '$routeParams', '$location', 'Global', 'Articles', function ($scope, $routeParams, $location, Global, Articles) {
   $scope.global = Global;
-  $scope.swipeEnabled = false;
-  // then check if it should be swipe enabled
-  Modernizr.load({
-    test: Modernizr.touch && Modernizr.csstransitions,
-    yep: '/lib/Swipe/swipe.js',
-    complete: function() {
-      if (Modernizr.touch && Modernizr.csstransitions) {
-        $scope.swipeEnabled = true;
-      }
-    }
-  });
+  $scope.swipeEnabled = Modernizr.touch && Modernizr.csstransitions;
 
   $scope.myInterval = 5000;
 
@@ -36,7 +26,7 @@ angular.module('mean.slides').controller('SlidesController', ['$scope', '$routeP
     // hide carousel controls
     $('.carousel-control').hide();
     //Initialize Swipe.js
-    scope.mySwipe = new Swipe($("#slide-carousel .carousel-inner")[0], {
+    scope.mySwipe = new Swipe(document.getElementById('slide-carousel'), {
       callback: function(event, index, elem) {
         //updateNav(index);
         //loadImg(index + 1);
@@ -48,11 +38,14 @@ angular.module('mean.slides').controller('SlidesController', ['$scope', '$routeP
 
   var directiveDefinitionObject = {
     link: function postLink(scope, iElement, iAttrs) {
-      if(scope.swipeEnabled){
-        buildSwipe(scope);
-      }else{
-        buildCarousel();
-      }
+
+      scope.$watch('slides', function(newSlides, oldSlides){
+        if(scope.swipeEnabled){
+          buildSwipe(scope);
+        }else{
+          buildCarousel();
+        }
+      });
 
     }
   };
