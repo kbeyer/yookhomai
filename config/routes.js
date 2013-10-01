@@ -74,6 +74,8 @@ module.exports = function(app, passport, auth) {
     app.get('/articles/:articleId', articles.show);
     app.put('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.update);
     app.del('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.destroy);
+    // pray mode
+    app.get('/pray', articles.pray);
 
     //Finish with setting up the articleId param
     app.param('articleId', articles.article);

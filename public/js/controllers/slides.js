@@ -27,12 +27,15 @@ angular.module('mean.slides').controller('SlidesController', ['$scope', '$routeP
     $('.carousel-control').hide();
     //Initialize Swipe.js
     scope.mySwipe = new Swipe(document.getElementById('slide-carousel'), {
-      callback: function(event, index, elem) {
-        //updateNav(index);
-        //loadImg(index + 1);
-        alert('swipe callback for index ' + index);
-      } 
-    });
+        startSlide: 1,
+        speed: 400,
+        auto: 10000,
+        continuous: true,
+        disableScroll: false,
+        stopPropagation: false,
+        callback: function(index, elem) {},
+        transitionEnd: function(index, elem) {}
+      });
   };
 
 

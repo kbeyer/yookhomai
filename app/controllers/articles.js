@@ -92,3 +92,22 @@ exports.all = function(req, res) {
         }
     });
 };
+
+/**
+ * Show pray mode
+ */
+exports.pray = function(req, res) {
+    // only show articles for current user
+    Article.find({user: req.user}).sort('-created').populate('user').exec(function(err, articles) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            res.render('users/pray', {
+                title: 'Pray',
+                slides: articles
+            });
+        }
+    });
+};

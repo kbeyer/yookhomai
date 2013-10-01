@@ -1,0 +1,27 @@
+!!! 5
+html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.facebook.com/2008/fbml', itemscope='itemscope', itemtype='http://schema.org/Product')
+  include ../includes/head
+  body
+
+    div.swipe(id='slider')
+      div.swipe-wrap
+        each slide in slides
+          div(class='#{slide.source}')
+            div.swipe-content
+              h3 #{slide.title}
+              p !{slide.content}
+
+    include ../includes/foot
+
+    script
+      window.mySwipe = new Swipe(document.getElementById('slider'), {
+        startSlide: 1,
+        speed: 400,
+        auto: 10000,
+        continuous: true,
+        disableScroll: false,
+        stopPropagation: false,
+        callback: function(index, elem) {},
+        transitionEnd: function(index, elem) {}
+      });
+    
