@@ -5,7 +5,8 @@ html{
 body.pray-page{
   padding: 0!important; 
   /* TODO: create alternate theme with image bg */
-  background: url(/img/landscape-bench.jpg) no-repeat center center fixed; 
+  /*background: url(/img/bg/landscape-bench.jpg) no-repeat center center fixed; */
+  background: url(/img/bg/lake.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
