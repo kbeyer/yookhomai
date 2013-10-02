@@ -3,8 +3,8 @@ html{ font-size: 100%; }
 
 body.pray-page{
   padding: 0!important; 
-  /* TODO: create alternate theme with image bg
-  background-image: url(/img/landscape-bench.jpg);*/
+  /* TODO: create alternate theme with image bg */
+  background-image: url(/img/landscape-bench.jpg);
   background-repeat:no-repeat;
   background-size:100%;
   background-position:top left;
@@ -15,7 +15,7 @@ body.pray-page{
 @media (max-width: 640px) { h1 {font-size:2.4rem;} .swipe-content section.details{ font-size: 1.1rem; } }
 @media (min-width: 640px) { h1 {font-size:3.5rem;} .swipe-content section.details{ font-size: 1.3rem; } }
 @media (min-width:960px) { h1 {font-size:4rem;} .swipe-content section.details{ font-size: 1.8rem; } }
-@media (min-width:1100px) { h1 {font-size:4.5rem;} .swipe-content section.details{ font-size: 2.0rem; } }
+@media (min-width:1100px) { h1 {font-size:5.5rem;} .swipe-content section.details{ font-size: 2.0rem; } }
 
 .swipe {
   font: 14px/20px Helvetica, Arial, sans-serif;
@@ -26,15 +26,14 @@ body.pray-page{
 
   background-image: url(/img/bg/squairy_light.png);
 
-  /* TODO: create alternate theme with image bg
-  background: -moz-linear-gradient(-45deg,  rgba(239,239,239,0.73) 0%, rgba(255,255,255,0.26) 100%); 
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(239,239,239,0.73)), color-stop(100%,rgba(255,255,255,0.26)));
-  background: -webkit-linear-gradient(-45deg,  rgba(239,239,239,0.73) 0%,rgba(255,255,255,0.26) 100%); 
-  background: -o-linear-gradient(-45deg,  rgba(239,239,239,0.73) 0%,rgba(255,255,255,0.26) 100%);
-  background: -ms-linear-gradient(-45deg,  rgba(239,239,239,0.73) 0%,rgba(255,255,255,0.26) 100%); 
-  background: linear-gradient(135deg,  rgba(239,239,239,0.73) 0%,rgba(255,255,255,0.26) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#baefefef', endColorstr='#42ffffff',GradientType=1 ); 
-  */
+  /* TODO: create alternate theme with image bg */
+  background: -moz-linear-gradient(top,  rgba(239,239,239,0.84) 0%, rgba(255,255,255,0.03) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(239,239,239,0.84)), color-stop(100%,rgba(255,255,255,0.03))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6efefef', endColorstr='#08ffffff',GradientType=0 ); /* IE6-9 */
 
 }
 
@@ -47,10 +46,10 @@ body.pray-page{
   /*text-shadow: 0 -2px 3px #A6C3FF;*/
   -webkit-font-smoothing: antialiased;
   color: #444;
-  line-height: 1.5em;
-  margin: 4% 0 2%;
+  margin: 5% 1% 10% 1%;
 }
 .swipe-content section.details{
+  display: none;
   line-height: 1.2em;
   color: #333!important;
   -webkit-font-smoothing: antialiased;
