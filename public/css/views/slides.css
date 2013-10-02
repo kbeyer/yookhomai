@@ -1,14 +1,30 @@
 
-html{ font-size: 100%; }
-
+html{ 
+  font-size: 100%;
+}
 body.pray-page{
   padding: 0!important; 
   /* TODO: create alternate theme with image bg */
-  background-image: url(/img/landscape-bench.jpg);
-  background-repeat:no-repeat;
-  background-size:100%;
-  background-position:top left;
+  background: url(/img/landscape-bench.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   overflow: hidden;
+  /* via http://css-tricks.com/perfect-full-page-background-image/
+  NOTE: may need to move to div if IE issues on body */
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.myBackground.jpg', sizingMethod='scale');
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
+}
+
+img.slide-background {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
 }
 
 /* responsive font sizes */
@@ -24,17 +40,14 @@ body.pray-page{
   width: 100%;
   height: 100%;
 
-  background-image: url(/img/bg/squairy_light.png);
-
   /* TODO: create alternate theme with image bg */
   background: -moz-linear-gradient(top,  rgba(239,239,239,0.84) 0%, rgba(255,255,255,0.03) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(239,239,239,0.84)), color-stop(100%,rgba(255,255,255,0.03))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6efefef', endColorstr='#08ffffff',GradientType=0 ); /* IE6-9 */
-
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(239,239,239,0.84)), color-stop(100%,rgba(255,255,255,0.03))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6efefef', endColorstr='#08ffffff',GradientType=0 ); /* IE6-9 */
 }
 
 .swipe-content{

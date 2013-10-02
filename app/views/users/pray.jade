@@ -24,22 +24,4 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
         callback: function(index, elem) {},
         transitionEnd: function(index, elem) {}
       });
-
-      function handleResize(){
-        var height = $(window).height();
-        var width = $(window).width();
-        var ratio = width/height;
-        console.log('Handling resize (' + width + ', ' + height + ') ratio: ' + ratio);
-
-        if(ratio>1){
-          // portrait
-          $("body.pray-page").css("background-size","auto " + height + "px");
-        }
-        else if(ratio<1){
-          // landscape
-          $("body.pray-page").css("background-size", "auto " + height + "px");
-        }
-      }
-      $(window).resize(handleResize);
-      $(document).load(handleResize);// handle on first load
     
