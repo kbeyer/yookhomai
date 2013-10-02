@@ -46,7 +46,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6efefef', e
   /*text-shadow: 0 -2px 3px #A6C3FF;*/
   -webkit-font-smoothing: antialiased;
   color: #444;
-  margin: 5% 1% 50% 1%;
+  margin: 5% 1% 40% 1%;
 }
 .swipe-content section.details{
   display: none;
