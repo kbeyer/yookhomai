@@ -9,9 +9,8 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
             source: 'web'
         });
         article.$save(function(response) {
-            // TODO: show list page or detail page after save?
-            //$location.path("p/" + response._id);
-            $location.path("p/");
+            // go home after save
+            $location.path("/");
         });
 
         this.title = "";
@@ -24,7 +23,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         if(!confirm('Are you sure you want to delete this item?')){ return false; }
 
         article.$remove(function(){
-            $location.path("p/");
+            $location.path("/");
         });
 
         for (var i in $scope.articles) {
@@ -45,7 +44,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
 
         article.$update(function() {
             // show list page after update
-            $location.path('p/');
+            $location.path('/');
         });
 
         return false;
