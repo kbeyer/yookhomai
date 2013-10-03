@@ -44,3 +44,17 @@ script(type='text/javascript')
 
   ga('create', 'UA-44574324-1', 'yookhomai.com');
   ga('send', 'pageview');
+// kiss metrics
+script(type="text/javascript")
+  var _kmq = _kmq || [];
+  var _kmk = _kmk || 'c094326397879fec4cbb710b611d031da93a2fa4';
+  function _kms(u){
+    setTimeout(function(){
+      var d = document, f = d.getElementsByTagName('script')[0],
+      s = d.createElement('script');
+      s.type = 'text/javascript'; s.async = true; s.src = u;
+      f.parentNode.insertBefore(s, f);
+    }, 1);
+  }
+  _kms('//i.kissmetrics.com/i.js');
+  _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
