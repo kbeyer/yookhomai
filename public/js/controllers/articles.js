@@ -1,5 +1,7 @@
 angular.module('mean.articles').controller('ArticlesController', ['$scope', '$routeParams', '$location', 'Global', 'Articles', function ($scope, $routeParams, $location, Global, Articles) {
     $scope.global = Global;
+    if(!$scope.global.user){ $location.path('/w'); return false; }
+
     $scope.nameMaxCharacters = 10;
 
     $scope.create = function() {
@@ -50,6 +52,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
     };
 
     $scope.find = function(query) {
+        if(!$scope.global.user){ $location.path('/w'); return false; }
         Articles.query(query, function(articles) {
             if(!articles || articles.length === 0){
                 articles = [];
