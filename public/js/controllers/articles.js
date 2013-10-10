@@ -23,14 +23,13 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         if(!confirm('Are you sure you want to delete this item?')){ return false; }
 
         article.$remove(function(){
-            $location.path("/");
+            for (var i in $scope.articles) {
+                if ($scope.articles[i] == article) {
+                    $scope.articles.splice(i, 1);
+                }
+            }
         });
 
-        for (var i in $scope.articles) {
-            if ($scope.articles[i] == article) {
-                $scope.articles.splice(i, 1);
-            }
-        }
         return false;
 
     };
@@ -52,8 +51,54 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
 
     $scope.find = function(query) {
         Articles.query(query, function(articles) {
+            if(!articles || articles.length === 0){
+                articles = [];
+                articles.push({title: 'Tap an item to edit', user: {_id: $scope.global.user._id}});
+                articles.push({title: 'Swipe right to mark answered', user: {_id: $scope.global.user._id}});
+                articles.push({title: 'Swipe left to remove', user: {_id: $scope.global.user._id}});
+                articles.push({title: 'Click the play button to pray', user: {_id: $scope.global.user._id}});
+            }
             $scope.articles = articles;
         });
+    };
+
+    $scope.saveNew = function($event){
+        if(!$event){ return false; }
+        var newText = $event.target.value;
+        var article = new Articles({
+            title: newText,
+            source: 'web'
+        });
+        article.$save(function(response) {
+            // add to current list
+            $scope.articles.unshift(response);
+            $event.target.value = '';
+        });
+
+        $event.target.value = 'Saving...';
+
+        return false;
+    };
+    $scope.updateExisting = function($event){
+
+        if(!$event){ return false; }
+
+        var input = $event.target;
+        // mark disabled while updating
+        input.disabled = true;
+
+        var article = this.article;
+        if (!article.updated) {
+            article.updated = [];
+        }
+        article.updated.push(new Date().getTime());
+
+        article.$update(function() {
+            // mark enabled after save
+            input.disabled = false;
+        });
+
+        return false;
     };
 
     $scope.slides = function(){

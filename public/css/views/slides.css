@@ -1,22 +1,4 @@
 
-html{ 
-  font-size: 100%;
-}
-body.pray-page{
-  padding: 0!important; 
-  /* TODO: create alternate theme with image bg */
-  /*background: url(/img/bg/landscape-bench.jpg) no-repeat center center fixed; */
-  background: url(/img/bg/lake.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  overflow: hidden;
-  /* via http://css-tricks.com/perfect-full-page-background-image/
-  NOTE: may need to move to div if IE issues on body */
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.myBackground.jpg', sizingMethod='scale');
-  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
-}
 
 img.slide-background {
   position: fixed; 
@@ -27,12 +9,6 @@ img.slide-background {
   min-width: 100%;
   min-height: 100%;
 }
-
-/* responsive font sizes */
-@media (max-width: 640px) { h1 {font-size:2.4rem;} .swipe-content section.details{ font-size: 1.1rem; } }
-@media (min-width: 640px) { h1 {font-size:3.5rem;} .swipe-content section.details{ font-size: 1.3rem; } }
-@media (min-width:960px) { h1 {font-size:4rem;} .swipe-content section.details{ font-size: 1.8rem; } }
-@media (min-width:1100px) { h1 {font-size:5.5rem;} .swipe-content section.details{ font-size: 2.0rem; } }
 
 .swipe {
   font: 14px/20px Helvetica, Arial, sans-serif;

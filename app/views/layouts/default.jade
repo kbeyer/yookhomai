@@ -2,7 +2,11 @@
 html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.facebook.com/2008/fbml', itemscope='itemscope', itemtype='http://schema.org/Product')
   include ../includes/head
   body
-    header.navbar.navbar-fixed-top.navbar-default(role="navigation", data-ng-include="'/views/header.html'")
+    div.body-bg
+    div.body-overlay
+
+    header.navbar.navbar-default(role="navigation", data-ng-include="'/views/header.html'")
+
 
     != messages()
       

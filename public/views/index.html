@@ -6,31 +6,31 @@
 <section data-ng-show="global.user" data-ng-controller="ArticlesController" data-ng-init="find()">
   <div class="row">
     <ul class="articles unstyled">
-      <li class="col-md-4" data-ng-repeat="article in articles">
+      <li class="col-md-12 create-new">
         <div class="card">
-          <div class="card-header">
-            <h2><a data-ng-href="#!/p/{{article._id}}/edit">{{article.title}}</a></h2>
+          <div class="col-md-12 card-header">
+            <h2><input id="newInput" class="input-inline" placeholder="Create a prayer..." ui-event="{ blur : 'saveNew($event)'}" ui-keypress="{13:'saveNew($event)'}"/></h2>
           </div>
-          <div class="card-body" ng-bind-html-unsafe="article.content"></div>
-          <div class="card-footer">
-            <span>{{article.created | date:'short'}}</span> /
-            <span>{{article.user.name | limitTo:nameMaxCharacters }}</span> /
+          <div class="col-md-12 pull-right card-footer"></div>
+      </li>
+
+      <li class="col-md-12" data-ng-repeat="article in articles">
+        <div class="card">
+          <div class="col-md-12 card-header">
+            <h2><input ng-model="article.title" ui-event="{ blur : 'updateExisting($event)'}" ui-keypress="{13:'updateExisting($event)'}" class="input-inline" placeholder="Create a prayer..." /></h2>
+          </div>
+          <div class="col-md-12 pull-right card-footer">
+            <span>{{article.created | date:'short'}}</span> 
             <span>
-              <div class="btn-group dropup">
-                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                  <i class="icon-cog"></i>
-                </button>
-                <ul role="menu" class="dropdown-menu pull-right">
-                  <li data-ng-show="global.user._id == article.user._id" ><a href="/#!/p/{{article._id}}/edit"><i class="icon-edit"></i> Edit</a></li>
-                  <li class="divider"></li>
-                  <li data-ng-show="global.user._id == article.user._id" ><a data-ng-click="remove(article)"><i class="icon-remove-circle"></i>  Remove</a></li>
-                </ul>
-              </div>
+              <button data-ng-show="global.user._id == article.user || global.user._id == article.user._id" 
+                      data-ng-click="remove(article)"
+                      type="button" class="btn btn-link icon-button">
+                <i class="icon-remove-circle"></i>
+              </button>
             </span>
            </div>
         </div>
       </li>
     </ul>
-    <h1 class="col-md-12" data-ng-hide="!articles || articles.length">No prayers yet. <br> It's easy to <a href="/#!/p/create">Create One</a>.</h1>
   </div>
 </section>

@@ -69,13 +69,13 @@ module.exports = function(app, passport, auth) {
 
     //Article Routes
     var articles = require('../app/controllers/articles');
-    app.get('/articles', articles.all);
+    app.get('/articles', auth.requiresLogin, articles.all);
     app.post('/articles', auth.requiresLogin, articles.create);
-    app.get('/articles/:articleId', articles.show);
+    app.get('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.show);
     app.put('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.update);
     app.del('/articles/:articleId', auth.requiresLogin, auth.article.hasAuthorization, articles.destroy);
     // pray mode
-    app.get('/pray', articles.pray);
+    app.get('/pray', auth.requiresLogin, articles.pray);
 
     //Finish with setting up the articleId param
     app.param('articleId', articles.article);

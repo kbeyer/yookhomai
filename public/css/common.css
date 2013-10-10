@@ -1,18 +1,102 @@
-body{
-    padding-top: 50px; /* room for fixed nav */
+
+html{ 
+  font-size: 100%;
+}
+
+.body-bg{  
+  z-index: -9999;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  /* TODO: create alternate theme with image bg */
+  background: url(/img/bg/landscape-bench.jpg) no-repeat center center fixed;
+  /*background: url(/img/bg/land.jpg) no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: hidden;
+  /* via http://css-tricks.com/perfect-full-page-background-image/
+  NOTE: may need to move to div if IE issues on body */
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./img/bg/landscape-bench.jpg', sizingMethod='scale');
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/img/bg/landscape-bench.jpg', sizingMethod='scale')";
+}
+
+.body-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  width: 100%;
+  height: 100%;
+  /* TODO: create alternate theme with image bg */
+  background: -moz-linear-gradient(top,  rgba(239,239,239,0.84) 0%, rgba(255,255,255,0.03) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(239,239,239,0.84)), color-stop(100%,rgba(255,255,255,0.03))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(239,239,239,0.84) 0%,rgba(255,255,255,0.03) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6efefef', endColorstr='#08ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+.icon-button{font-size: 3.0rem; cursor: pointer; padding: 0.5rem; color: #888; text-decoration: none;}
+.icon-button:hover{color: #333; text-decoration: none;}
+.input-lg{ font-size: 3.0rem; height: 6rem; line-height: 3rem; }
+/* responsive font sizes */
+@media (max-width: 640px) { 
+    h1 {font-size:2.4rem;} 
+    h2 {font-size:1.5rem;}
+    .input-lg{ font-size: 1.3rem; height: 2.6rem; line-height: 1.3rem; }
+    .icon-button{font-size: 2.0rem;}
+    .swipe-content section.details{ font-size: 1.1rem; } }
+@media (min-width: 640px) { 
+    h1 {font-size:3.5rem;} 
+    h2 {font-size:3.0rem;} 
+    .input-lg{ font-size: 3.0rem; height: 6rem; line-height: 3rem; }
+    .icon-button{font-size: 3.0rem;}
+    .swipe-content section.details{ font-size: 1.3rem; } }
+@media (min-width:960px) { 
+    h1 {font-size:4rem;} 
+    h2 {font-size:3.5rem;} 
+    .input-lg{ font-size: 3.5rem; height: 7rem; line-height: 3.5rem; }
+    .icon-button{font-size: 3.5rem;}
+    .swipe-content section.details{ font-size: 1.8rem; } }
+@media (min-width:1100px) { 
+    h1 {font-size:5.5rem;} 
+    h2 {font-size:4.5rem;} 
+    .input-lg{ font-size: 4.0rem; height: 8rem; line-height: 4rem; }
+    .icon-button{font-size: 4.0rem;}
+    .swipe-content section.details{ font-size: 2.0rem; } }
+
+/* navbar overrides */
+.navbar-default{
+    border: none;
+    background: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+.navbar-vertical{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.navbar-vertical li{
+    float: none;
+    padding: 0.5rem;
 }
 
 .navbar .nav>li>a.brand {
     padding-left:20px;
     margin-left:0
 }
-.navbar .nav>li>a.new {
-    font-size: 25px;
-    padding: 5px 15px;
-}
+
 .content {
     margin-top:10px;
-    width:100%
+    width:100%;
+    z-index: 1;
 }
 
 footer {

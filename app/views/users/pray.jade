@@ -24,4 +24,14 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
         callback: function(index, elem) {},
         transitionEnd: function(index, elem) {}
       });
+      var pinching = false;
+      $('.pray-page').hammer().on("pinchin", ".swipe", function(event) {
+          pinching = true;
+      });
+      $('.pray-page').hammer().on("release", ".swipe", function(event) {
+          if(pinching){ 
+            window.location = '/';
+            pinching = false; 
+          }
+      });
     

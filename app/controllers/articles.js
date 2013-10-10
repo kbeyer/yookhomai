@@ -34,6 +34,7 @@ exports.create = function(req, res) {
             });
         } 
         else {
+            article.user = req.user;
             res.jsonp(article);
         }
     });
