@@ -1,13 +1,13 @@
-{
+ {
     "db": "mongodb://kyle:1.kyle.1@paulo.mongohq.com:10069/Yookhomai/",
     "app": {
         "name": "Yookhomai",
         "debug": true
     },
     "facebook": {
-        "clientID": "APP_ID",
-        "clientSecret": "APP_SECRET",
-        "callbackURL": "http://localhost:3000/auth/facebook/callback"
+        "clientID": "279883355470009",
+        "clientSecret": "7ed527ef3be3497527e11c0c749810ca",
+        "callbackURL": "http://local.yookhomai.com:3000/auth/facebook/callback"
     },
     "twitter": {
         "clientID": "CONSUMER_KEY",
@@ -20,9 +20,9 @@
         "callbackURL": "http://localhost:3000/auth/github/callback"
     },
     "google": {
-        "clientID": "APP_ID",
-        "clientSecret": "APP_SECRET",
-        "callbackURL": "http://localhost:3000/auth/google/callback"
+        "clientID": "226122150941.apps.googleusercontent.com",
+        "clientSecret": "GnQ5NI-fBlYu8_RKWkMnQ5i9",
+        "callbackURL": "http://local.yookhomai.com:3000/auth/google/callback"
     },
     "twilio":{
         "accountSid": "AC62517045a1bbfc0d0ce5229f887cd6c6",

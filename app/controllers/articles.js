@@ -83,11 +83,9 @@ exports.show = function(req, res) {
 exports.all = function(req, res) {
     // only show articles for current user
 
-    Article.find({user: req.user}).sort('-created').populate('user').exec(function(err, articles) {
+    Article.find({user: req.user}).where('status').ne('removed').sort('-created').populate('user').exec(function(err, articles) {
         if (err) {
-            res.render('error', {
-                status: 500
-            });
+            res.jsonp(err);
         } else {
             res.jsonp(articles);
         }
@@ -99,9 +97,13 @@ exports.all = function(req, res) {
  */
 exports.pray = function(req, res) {
     // only show articles for current user
-    Article.find({user: req.user}).sort('-created').populate('user').exec(function(err, articles) {
+    Article.find({user: req.user})
+            .or([{status: 'active'}, {status: null}]) // load docs that are active and those that don't have the status field
+            .sort('-created')
+            .populate('user')
+            .exec(function(err, articles) {
         if (err) {
-            res.render('error', {
+            res.render('500', {
                 status: 500
             });
         } else {

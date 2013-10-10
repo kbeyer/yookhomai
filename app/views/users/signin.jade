@@ -1,8 +1,7 @@
 extends auth
 
 block auth
-  h2 Sign in
-  br
+  
   form.signin(action="/users/session", method="post")
     p.error= message
     .input-group.input-group-lg.required

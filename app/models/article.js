@@ -33,6 +33,9 @@ var ArticleSchema = new Schema({
     },
     source: {
         type: String
+    },
+    status: {
+        type: String, default: 'active' // [active, answered, unnswered, removed]
     }
 });
 

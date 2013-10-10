@@ -21,15 +21,54 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         return false;
     };
 
+    $scope.answered = function(article){
+
+        article.status = 'answered';
+
+        // don't persist to server is local
+        if(!article._id){ return false; }
+
+        if (!article.updated) {
+            article.updated = [];
+        }
+        article.updated.push(new Date().getTime());
+
+        article.$update(function() {
+            // show marked out locally ... via binding
+        });
+    };
+    $scope.unanswered = function(article){
+
+        article.status = 'unanswered';
+
+        // don't persist to server is local
+        if(!article._id){ return false; }
+
+        if (!article.updated) {
+            article.updated = [];
+        }
+        article.updated.push(new Date().getTime());
+
+        article.$update(function() {
+            // show marked out locally ... via binding
+        });
+    };
+
     $scope.remove = function(article) {
         if(!confirm('Are you sure you want to delete this item?')){ return false; }
 
-        article.$remove(function(){
+        var localRemove = function(article){
             for (var i in $scope.articles) {
                 if ($scope.articles[i] == article) {
                     $scope.articles.splice(i, 1);
                 }
             }
+        };
+
+        if(!article._id){ localRemove(article); }
+
+        article.$remove(function(){
+            localRemove(article);
         });
 
         return false;
@@ -56,10 +95,18 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         Articles.query(query, function(articles) {
             if(!articles || articles.length === 0){
                 articles = [];
-                articles.push({title: 'Tap an item to edit', user: {_id: $scope.global.user._id}});
-                articles.push({title: 'Swipe right to mark answered', user: {_id: $scope.global.user._id}});
-                articles.push({title: 'Swipe left to remove', user: {_id: $scope.global.user._id}});
-                articles.push({title: 'Click the play button to pray', user: {_id: $scope.global.user._id}});
+                if($scope.global.hasTouch){
+                    articles.push({title: 'Touch an item to edit', user: {_id: $scope.global.user._id}});
+                    articles.push({title: 'Swipe right to mark answered', user: {_id: $scope.global.user._id}});
+                    articles.push({title: 'Swipe left to remove', user: {_id: $scope.global.user._id}});
+                    articles.push({title: 'Pinch out to enter pray mode', user: {_id: $scope.global.user._id}});
+                }else{
+                    articles.push({title: 'Click an item to edit', user: {_id: $scope.global.user._id}});
+                    articles.push({title: 'Use thumbs up to mark answered', user: {_id: $scope.global.user._id}});
+                    articles.push({title: 'Thumbs down to mark unanswered', user: {_id: $scope.global.user._id}});
+                    articles.push({title: 'Click X to remove', user: {_id: $scope.global.user._id}});
+                    articles.push({title: 'Click play button to enter pray mode', user: {_id: $scope.global.user._id}});
+                }
             }
             $scope.articles = articles;
         });
@@ -68,6 +115,8 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
     $scope.saveNew = function($event){
         if(!$event){ return false; }
         var newText = $event.target.value;
+        if(newText === ''){ return false; }
+
         var article = new Articles({
             title: newText,
             source: 'web'
@@ -87,10 +136,13 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         if(!$event){ return false; }
 
         var input = $event.target;
+        var article = this.article;
+        // check if text changed
+        if(input.value === article.title){ return false; }
+
         // mark disabled while updating
         input.disabled = true;
 
-        var article = this.article;
         if (!article.updated) {
             article.updated = [];
         }

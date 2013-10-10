@@ -1,6 +1,10 @@
 extends ../layouts/default
 
 block content
+  
+  h2 #{title}
+  br
+
   .row
     .col-md-6
       if (typeof errors !== 'undefined'  && errors.length > 0)
@@ -12,10 +16,17 @@ block content
               li= error.type
                 span #{error.message}
 
+
+  .row.social-auth
+    .social-auth-btn.col-md-6
+      a.btn.btn-primary.btn-lg(href="/auth/facebook")
+        i.icon-facebook
+        span.text-after-icon Facebook
+
+  .row
+    .col-md-6
+      .or-divider
+  .row
+    .col-md-6
       block auth
-    
-    .col-md-6(data-ng-show="global.socialAuthEnabled")
-      a(href="/auth/facebook")
-        img(src="/img/icons/facebook.png")
-      a(href="/auth/twitter")
-        img(src="/img/icons/twitter.png")
+      

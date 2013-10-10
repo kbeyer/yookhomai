@@ -1,8 +1,9 @@
 extends auth
 
 block auth
-  h2 Join Yookhomai
-  br
+
+  h3 Sign up with email
+
   form.signup.form-horizontal(action="/users", method="post")
 
     .input-group.input-group-lg.required
@@ -23,7 +24,7 @@ block auth
     br
           
     .input-group.input-group-lg
-      button.btn.btn-primary(type='submit') Sign up
+      button.btn.btn-primary(type='submit') Get started
 
     br
 

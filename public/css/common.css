@@ -41,6 +41,14 @@ html{
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6efefef', endColorstr='#08ffffff',GradientType=0 ); /* IE6-9 */
 }
 
+/* items to hide when touch is supported */
+html.touch .hide-if-touch{
+  display: none;
+}
+
+.text-after-icon{ margin-left: 10px; }
+.or-divider{ width: 100%; font-size: 1.2rem; color: #444; border-bottom: solid 1px; margin-top: 2rem;}
+
 .icon-button{font-size: 3.0rem; cursor: pointer; padding: 0.5rem; color: #888; text-decoration: none;}
 .icon-button:hover{color: #333; text-decoration: none;}
 .input-lg{ font-size: 3.0rem; height: 6rem; line-height: 3rem; }
@@ -59,14 +67,14 @@ html{
     .swipe-content section.details{ font-size: 1.3rem; } }
 @media (min-width:960px) { 
     h1 {font-size:4rem;} 
-    h2 {font-size:3.5rem;} 
-    .input-lg{ font-size: 3.5rem; height: 7rem; line-height: 3.5rem; }
+    h2 {font-size:3.1rem;} 
+    .input-lg{ font-size: 3.1rem; height: 7rem; line-height: 3.5rem; }
     .icon-button{font-size: 3.5rem;}
     .swipe-content section.details{ font-size: 1.8rem; } }
 @media (min-width:1100px) { 
     h1 {font-size:5.5rem;} 
-    h2 {font-size:4.5rem;} 
-    .input-lg{ font-size: 4.0rem; height: 8rem; line-height: 4rem; }
+    h2 {font-size:4.2rem;} 
+    .input-lg{ font-size: 3.5rem; height: 8rem; line-height: 4rem; }
     .icon-button{font-size: 4.0rem;}
     .swipe-content section.details{ font-size: 2.0rem; } }
 

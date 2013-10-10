@@ -12,16 +12,27 @@
       </li>
 
       <li class="col-md-12" data-ng-repeat="article in articles">
-        <div class="card">
+        <div class="card {{article.status}}">
           <div class="col-md-12 card-header">
             <h2><input ng-model="article.title" ui-event="{ blur : 'updateExisting($event)'}" ui-keypress="{13:'updateExisting($event)'}" class="input-inline" placeholder="Create a prayer..." /></h2>
           </div>
           <div class="col-md-12 pull-right card-footer">
             <span>{{article.created | date:'short'}}</span> 
-            <span>
-              <button data-ng-show="global.user._id == article.user || global.user._id == article.user._id" 
-                      data-ng-click="remove(article)"
-                      type="button" class="btn btn-link icon-button">
+            <span class="hide-if-touch" data-ng-show="global.user._id == article.user || global.user._id == article.user._id">
+              
+              <button data-ng-click="answered(article)"
+                      type="button" class="btn btn-link icon-button"
+                      title="Mark answered">
+                <i class="icon-thumbs-up"></i>
+              </button>
+              <button data-ng-click="unanswered(article)"
+                      type="button" class="btn btn-link icon-button"
+                      title="Mark unanswered">
+                <i class="icon-thumbs-down"></i>
+              </button>
+              <button data-ng-click="remove(article)"
+                      type="button" class="btn btn-link icon-button"
+                      title="Remove">
                 <i class="icon-remove-circle"></i>
               </button>
             </span>

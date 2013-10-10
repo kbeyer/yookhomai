@@ -16,7 +16,7 @@ exports.authCallback = function(req, res, next) {
  */
 exports.signin = function(req, res) {
     res.render('users/signin', {
-        title: 'Signin',
+        title: 'Sign in',
         message: req.flash('error')
     });
 };
@@ -40,7 +40,7 @@ exports.signup = function(req, res) {
 
     var renderSignup = function(user){
         res.render('users/signup', {
-            title: 'Sign up',
+            title: 'Join Yookhomai',
             user: user
         });
     };

@@ -53,11 +53,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c1ffda', e
   right: 0;
 }
 .card .card-footer .icon-button{
-  font-size: 1.2rem;
-  color:rgba(45,220,255,0.39);
+  font-size: 1.5rem;
+  color: #666;
 }
 .card .card-footer .icon-button:hover{
   color: #333;
+  font-size: 2rem;
 }
 
 .card .input-inline{ 
@@ -69,4 +70,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c1ffda', e
 .card .input-inline:focus{
   border: none;
   color: #222;
+}
+.card.answered .input-inline{
+  text-decoration: line-through;
+  color: #36AD3C;
+}
+.card.unanswered .input-inline{
+  text-decoration: line-through;
+  color: #9C0000;
 }
