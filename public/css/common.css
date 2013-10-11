@@ -3,7 +3,10 @@ html{
   font-size: 100%;
 }
 
-.body-bg{  
+body{ background: url(/img/slides-bg.png) repeat; }
+body.pray-page{ background: none; }
+
+.pray-page .body-bg{  
   z-index: -9999;
   top: 0;
   left: 0;
@@ -24,7 +27,7 @@ html{
   -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/img/bg/landscape-bench.jpg', sizingMethod='scale')";
 }
 
-.body-overlay{
+.pray-page .body-overlay{
   position: fixed;
   top: 0;
   left: 0;

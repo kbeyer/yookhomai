@@ -32,7 +32,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c1ffda', e
 .card h2{
   margin-top: 0;
   overflow: hidden;
-  color: #444;
+  color: #aaa;
+}
+.card ::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #666;
+}
+.card :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #666;
+}
+.card ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #666;
+}
+.card :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #666;
 }
 .card .card-header{
   padding: 0;
