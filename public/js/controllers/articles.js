@@ -144,14 +144,14 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
 
           case 'swipeleft':
             $scope.pinching = false;
-              $scope.unanswered(article);
+              $scope.changeStatus(article, 'unanswered');
               setContainerOffset($element, 0);
               ev.gesture.stopDetect();
               break;
 
           case 'swiperight':
             $scope.pinching = false;
-              $scope.answered(article);
+              $scope.changeStatus(article, 'answered');
                 setContainerOffset($element, 0);
               ev.gesture.stopDetect();
               break;
