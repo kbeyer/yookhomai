@@ -128,10 +128,12 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
       switch(ev.type) {
           case 'pinchout': 
               $scope.pinching = true;
-              ev.gesture.stopDetect();
+              //ev.gesture.stopDetect();
               break;
           case 'dragright':
           case 'dragleft':
+
+                $scope.pinching = false;
               // stick to the finger
               var pane_offset = -(100/pane_count)*current_pane;
               var drag_offset = ((100/pane_width)*ev.gesture.deltaX) / pane_count;
@@ -146,20 +148,22 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
               break;
 
           case 'swipeleft':
+            $scope.pinching = false;
               $scope.unanswered(article);
               setContainerOffset($element, 0);
               ev.gesture.stopDetect();
               break;
 
           case 'swiperight':
-              $scope.answerd(article);
+            $scope.pinching = false;
+              $scope.answered(article);
                 setContainerOffset($element, 0);
               ev.gesture.stopDetect();
               break;
 
           case 'release':
               if($scope.pinching){
-                window.location = '/pray';
+                window.location = '/pray?id=' + article._id;
                 $scope.pinching = false; 
               }
               // more then 10% moved, take action

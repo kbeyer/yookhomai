@@ -6,9 +6,13 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
     div.body-bg
     div.body-overlay
     
+    - var slideStartIndex = 0
+
     div.swipe(id='slider')
       div.swipe-wrap
-        each slide in slides
+        each slide, index in slides
+          if slide._id == startSlideId
+            - slideStartIndex = index
           div(class='#{slide.source}')
             div.swipe-content
               h1 #{slide.title}
@@ -18,7 +22,7 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.face
 
     script(type='text/javascript')
       window.mySwipe = new Swipe(document.getElementById('slider'), {
-        startSlide: 0,
+        startSlide: #{slideStartIndex},
         speed: 400,
         auto: 10000,
         continuous: true,

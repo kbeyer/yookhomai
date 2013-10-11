@@ -109,7 +109,8 @@ exports.pray = function(req, res) {
         } else {
             res.render('users/pray', {
                 title: 'Pray',
-                slides: articles
+                slides: articles,
+                startSlideId: req.query.id
             });
         }
     });
