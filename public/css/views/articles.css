@@ -32,19 +32,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c1ffda', e
 .card h2{
   margin-top: 0;
   overflow: hidden;
-  color: #aaa;
+  color: #888;
 }
 .card ::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #666;
+    color:    #555;
 }
 .card :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #666;
+    color:    #555;
 }
 .card ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #666;
+    color:    #555;
 }
 .card :-ms-input-placeholder { /* Internet Explorer 10+ */
-    color:    #666;
+    color:    #555;
 }
 .card .card-header{
   padding: 0;
@@ -58,18 +58,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c1ffda', e
 .card .card-footer{
   margin-top: 10px;
   padding-top: 0px;
-  color: #aaa;
+  color: #777;
   text-align: right;
   position: absolute;
   bottom: 0;
   right: 0;
+  font-size: 0.9rem;
 }
 .card .card-footer .icon-button{
   font-size: 1.5rem;
-  color: #666;
+  color: #555;
 }
 .card .card-footer .icon-button:hover{
-  color: #333;
+  color: #777;
   font-size: 2rem;
 }
 
@@ -78,10 +79,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c1ffda', e
   background: transparent;
   color: inherit;
   width: 100%;
+  text-overflow: ellipsis;
 }
 .card .input-inline:focus{
   border: none;
-  color: #222;
+  color: #efefef;
 }
 .card.answered .input-inline{
   text-decoration: line-through;
@@ -90,4 +92,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c1ffda', e
 .card.unanswered .input-inline{
   text-decoration: line-through;
   color: #9C0000;
+}
+.card.removed .input-inline{
+  text-decoration: line-through;
+  color: #555;
 }

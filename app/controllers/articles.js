@@ -81,9 +81,19 @@ exports.show = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
-    // only show articles for current user
 
-    Article.find({user: req.user}).where('status').ne('removed').sort('-created').populate('user').exec(function(err, articles) {
+    var skip = 0;
+    var limit = 100;
+    if(req.query.skip){ skip = req.query.skip; }
+    if(req.query.limit){ limit = req.query.limit; }
+    // only show articles for current user
+    Article.find({user: req.user})
+            .where('status').ne('removed')
+            .sort('-created')
+            .populate('user')
+            .skip(skip)
+            .limit(limit)
+            .exec(function(err, articles) {
         if (err) {
             res.jsonp(err);
         } else {
@@ -96,11 +106,19 @@ exports.all = function(req, res) {
  * Show pray mode
  */
 exports.pray = function(req, res) {
+
+    var skip = 0;
+    var limit = 100;
+    if(req.query.skip){ skip = req.query.skip; }
+    if(req.query.limit){ limit = req.query.limit; }
+
     // only show articles for current user
     Article.find({user: req.user})
             .or([{status: 'active'}, {status: null}]) // load docs that are active and those that don't have the status field
             .sort('-created')
             .populate('user')
+            .skip(skip)
+            .limit(limit)
             .exec(function(err, articles) {
         if (err) {
             res.render('500', {

@@ -21,17 +21,17 @@
             <span>{{article.created | date:'short'}}</span> 
             <span class="hide-if-touch" data-ng-show="global.user._id == article.user || global.user._id == article.user._id">
               
-              <button data-ng-click="answered(article)"
+              <button data-ng-click="changeStatus(article, 'answered')"
                       type="button" class="btn btn-link icon-button"
                       title="Mark answered">
                 <i class="icon-thumbs-up"></i>
               </button>
-              <button data-ng-click="unanswered(article)"
+              <button data-ng-click="changeStatus(article, 'unanswered')"
                       type="button" class="btn btn-link icon-button"
                       title="Mark unanswered">
                 <i class="icon-thumbs-down"></i>
               </button>
-              <button data-ng-click="remove(article)"
+              <button data-ng-click="changeStatus(article, 'removed')"
                       type="button" class="btn btn-link icon-button"
                       title="Remove">
                 <i class="icon-remove-circle"></i>

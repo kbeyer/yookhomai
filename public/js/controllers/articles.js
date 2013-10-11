@@ -22,11 +22,22 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         return false;
     };
 
-    $scope.answered = function(article){
+    $scope.changeStatus = function(article, status){
+        // special confirm for remove
+        if(status === 'removed'){
+            if(!confirm('Are you sure you want to delete this item?')){ return false; }
+            // remove locally first ... then persist to DB
+            for (var i in $scope.articles) {
+                if ($scope.articles[i] == article) {
+                    $scope.articles.splice(i, 1);
+                }
+            }
+        }
 
-        article.status = 'answered';
+        // update status so that UI is updated...
+        article.status = status;
 
-        // don't persist to server is local
+        // if local update only ... then we're done
         if(!article._id){ return false; }
 
         if (!article.updated) {
@@ -35,27 +46,11 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         article.updated.push(new Date().getTime());
 
         article.$update(function() {
-            // show marked out locally ... via binding
-        });
-    };
-    $scope.unanswered = function(article){
-
-        article.status = 'unanswered';
-
-        // don't persist to server is local
-        if(!article._id){ return false; }
-
-        if (!article.updated) {
-            article.updated = [];
-        }
-        article.updated.push(new Date().getTime());
-
-        article.$update(function() {
-            // show marked out locally ... via binding
+            // TODO: reflect server status in UI
         });
     };
 
-    $scope.remove = function(article) {
+    $scope.delete = function(article) {
         if(!confirm('Are you sure you want to delete this item?')){ return false; }
 
         var localRemove = function(article){
@@ -97,7 +92,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
 
         var setContainerOffset = function($element, percent, animate) {
             var pane_width = $element.width();
-            var pane_count = 2;
+            var pane_count = 1;
 
           $element.removeClass("animate");
 
@@ -120,7 +115,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
       console.log(ev);
       var $element = $(ev.currentTarget);
       var pane_width = $element.width();
-      var pane_count = 2;
+      var pane_count = 1;
       var current_pane = 0;
       // disable browser scrolling
       ev.gesture.preventDefault();
@@ -141,7 +136,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
               // slow down at the first and last pane
               if((current_pane === 0 && ev.gesture.direction === Hammer.DIRECTION_RIGHT) ||
                   (current_pane === pane_count-1 && ev.gesture.direction === Hammer.DIRECTION_LEFT)) {
-                  drag_offset *= 0.4;
+                  drag_offset *= 0.42;
               }
 
               setContainerOffset($element, drag_offset + pane_offset);
@@ -166,13 +161,24 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
                 window.location = '/pray?id=' + article._id;
                 $scope.pinching = false; 
               }
-              // more then 10% moved, take action
-              else if(Math.abs(ev.gesture.deltaX) > pane_width/5) {
+              // more then 50% moved, re-activate or remove
+              // IMPORTANT .. this check must be befor answered/unanswered check
+              else if(Math.abs(ev.gesture.deltaX) > pane_width/1.2) {
                   if(ev.gesture.direction == 'right') {
-                      $scope.answered(article);
+                      $scope.changeStatus(article, 'active');
                       setContainerOffset($element, 0);
                   } else {
-                    $scope.unanswered(article);
+                    $scope.changeStatus(article, 'removed');
+                    setContainerOffset($element, 0);
+                  }
+              }
+              // more then 10% moved, mark answered / unanswered
+              else if(Math.abs(ev.gesture.deltaX) > pane_width/4) {
+                  if(ev.gesture.direction == 'right') {
+                      $scope.changeStatus(article, 'answered');
+                      setContainerOffset($element, 0);
+                  } else {
+                    $scope.changeStatus(article, 'unanswered');
                     setContainerOffset($element, 0);
                   }
               }
