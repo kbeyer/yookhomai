@@ -87,28 +87,54 @@ module.exports = function(passport) {
             callbackURL: config.facebook.callbackURL
         },
         function(accessToken, refreshToken, profile, done) {
+
+            var checkEmail = function(email, callback){
+                if(email){
+                    // first try to lookup existing user to link via email
+                    User.findOne({'email': email}, function(err, user){
+                        if(err){ return done(err); }
+                        callback(user);
+                    });
+                }
+                callback(false);
+            };
+
+            // FIRST try to find by facebook id
             User.findOne({
-                'facebook.id': profile.id
-            }, function(err, user) {
-                if (err) {
-                    return done(err);
-                }
-                if (!user) {
-                    user = new User({
-                        name: profile.displayName,
-                        email: profile.emails[0].value,
-                        username: profile.username,
-                        provider: 'facebook',
-                        facebook: profile._json
-                    });
-                    user.save(function(err) {
-                        if (err) console.log(err);
+                    'facebook.id': profile.id
+                }, function(err, user) {
+                    if (err) {
+                        return done(err);
+                    }
+                    if (!user) {
+                        // SECOND try to find by email
+                        checkEmail(profile.emails[0].value, function(userByEmail){
+                            // if existing user has same email ... link account
+                            if(userByEmail){
+                                userByEmail.name = profile.displayName;
+                                userByEmail.username = profile.username;
+                                userByEmail.provider = 'facebook';
+                                userByEmail.facebook = profile._json;
+                                user = userByEmail;
+                            }else{
+                                user = new User({
+                                    name: profile.displayName,
+                                    email: profile.emails[0].value,
+                                    username: profile.username,
+                                    provider: 'facebook',
+                                    facebook: profile._json
+                                });
+                            }
+
+                            user.save(function(err) {
+                                if (err) console.log(err);
+                                return done(err, user);
+                            });
+                        });
+                    } else {
                         return done(err, user);
-                    });
-                } else {
-                    return done(err, user);
-                }
-            });
+                    }
+                });
         }
     ));
 

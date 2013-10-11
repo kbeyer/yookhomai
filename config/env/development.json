@@ -7,7 +7,7 @@
     "facebook": {
         "clientID": "279883355470009",
         "clientSecret": "7ed527ef3be3497527e11c0c749810ca",
-        "callbackURL": "http://local.yookhomai.com:3000/auth/facebook/callback"
+        "callbackURL": "http://app.yookhomai.com/auth/facebook/callback"
     },
     "twitter": {
         "clientID": "CONSUMER_KEY",
