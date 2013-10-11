@@ -1,4 +1,4 @@
-window.app = angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', 'ui.event', 'ui.keypress', 'mean.system', 'mean.articles', 'mean.slides']);
+window.app = angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', 'ui.event', 'ui.touch', 'ui.keypress', 'mean.system', 'mean.articles', 'mean.slides']);
 
 angular.module('mean.system', []);
 angular.module('mean.articles', []);
@@ -21,6 +21,27 @@ angular.module('ui.event',[]).directive('uiEvent', ['$parse',
       angular.forEach(events, function (uiEvent, eventName) {
         var fn = $parse(uiEvent);
         elm.bind(eventName, function (evt) {
+          var params = Array.prototype.slice.call(arguments);
+          //Take out first paramater (event object);
+          params = params.splice(1);
+          fn($scope, {$event: evt, $params: params});
+          if (!$scope.$$phase) {
+            $scope.$apply();
+          }
+        });
+      });
+    };
+  }]);
+
+/** general purpose touch handler via hammer.js **/
+angular.module('ui.touch',[]).directive('uiTouch', ['$parse',
+  function ($parse) {
+    return function ($scope, elm, attrs) {
+      var events = $scope.$eval(attrs.uiTouch);
+      angular.forEach(events, function (uiTouch, eventName) {
+        var fn = $parse(uiTouch);
+
+        $(elm).hammer({ drag_lock_to_axis: true }).on(eventName, function (evt) {
           var params = Array.prototype.slice.call(arguments);
           //Take out first paramater (event object);
           params = params.splice(1);

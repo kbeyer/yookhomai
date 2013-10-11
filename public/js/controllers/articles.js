@@ -3,6 +3,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
     if(!$scope.global.user){ $location.path('/w'); return false; }
 
     $scope.nameMaxCharacters = 10;
+    $scope.pinching = false;
 
     $scope.create = function() {
         var article = new Articles({
@@ -88,6 +89,96 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         });
 
         return false;
+    };
+
+    $scope.handleTouchEvent = function(ev, article){
+
+        if(!ev){ return false; }
+
+        var setContainerOffset = function($element, percent, animate) {
+            var pane_width = $element.width();
+            var pane_count = 2;
+
+          $element.removeClass("animate");
+
+          if(animate) {
+              $element.addClass("animate");
+          }
+
+          if(Modernizr.csstransforms3d) {
+              $element.css("transform", "translate3d("+ percent +"%,0,0) scale3d(1,1,1)");
+          }
+          else if(Modernizr.csstransforms) {
+              $element.css("transform", "translate("+ percent +"%,0)");
+          }
+          else {
+              var px = ((pane_width*pane_count) / 100) * percent;
+              $element.css("left", px+"px");
+          }
+        };
+
+      console.log(ev);
+      var $element = $(ev.currentTarget);
+      var pane_width = $element.width();
+      var pane_count = 2;
+      var current_pane = 0;
+      // disable browser scrolling
+      ev.gesture.preventDefault();
+
+      switch(ev.type) {
+          case 'pinchout': 
+              $scope.pinching = true;
+              ev.gesture.stopDetect();
+              break;
+          case 'dragright':
+          case 'dragleft':
+              // stick to the finger
+              var pane_offset = -(100/pane_count)*current_pane;
+              var drag_offset = ((100/pane_width)*ev.gesture.deltaX) / pane_count;
+
+              // slow down at the first and last pane
+              if((current_pane === 0 && ev.gesture.direction === Hammer.DIRECTION_RIGHT) ||
+                  (current_pane === pane_count-1 && ev.gesture.direction === Hammer.DIRECTION_LEFT)) {
+                  drag_offset *= 0.4;
+              }
+
+              setContainerOffset($element, drag_offset + pane_offset);
+              break;
+
+          case 'swipeleft':
+              $scope.unanswered(article);
+              setContainerOffset($element, 0);
+              ev.gesture.stopDetect();
+              break;
+
+          case 'swiperight':
+              $scope.answerd(article);
+                setContainerOffset($element, 0);
+              ev.gesture.stopDetect();
+              break;
+
+          case 'release':
+              if($scope.pinching){
+                window.location = '/pray';
+                $scope.pinching = false; 
+              }
+              // more then 10% moved, take action
+              else if(Math.abs(ev.gesture.deltaX) > pane_width/5) {
+                  if(ev.gesture.direction == 'right') {
+                      $scope.answered(article);
+                      setContainerOffset($element, 0);
+                  } else {
+                    $scope.unanswered(article);
+                    setContainerOffset($element, 0);
+                  }
+              }
+              else {
+                    // TODO: snap back
+                  //self.showPane(current_pane, true);
+                    setContainerOffset($element, 0);
+              }
+              break;
+      }
     };
 
     $scope.find = function(query) {

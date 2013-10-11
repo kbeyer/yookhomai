@@ -2,7 +2,7 @@
 
 <section data-ng-show="global.user" data-ng-controller="ArticlesController" data-ng-init="find()">
   <div class="row">
-    <ul class="articles unstyled">
+    <ul class="articles unstyled" ui-touch="{ pinchout : handleTouchEvent($event) }">
       <li class="col-md-12 create-new">
         <div class="card">
           <div class="col-md-12 card-header">
@@ -12,9 +12,10 @@
       </li>
 
       <li class="col-md-12" data-ng-repeat="article in articles">
-        <div class="card {{article.status}}">
+        <div class="card {{article.status}}" 
+            ui-touch="{ 'release dragleft dragright swipeleft swiperight swipe' : 'handleTouchEvent($event, article)'}">
           <div class="col-md-12 card-header">
-            <h2><input ng-model="article.title" ui-event="{ blur : 'updateExisting($event)'}" ui-keypress="{13:'updateExisting($event)'}" class="input-inline" placeholder="Create a prayer..." /></h2>
+            <h2><input ng-model="article.title" ui-event="{ blur : 'updateExisting($event)'}" ui-keypress="{13:'updateExisting($event)'}" class="input-inline" placeholder="Add a prayer..." /></h2>
           </div>
           <div class="col-md-12 pull-right card-footer">
             <span>{{article.created | date:'short'}}</span> 
@@ -42,16 +43,3 @@
     </ul>
   </div>
 </section>
-
-<script>
-      var pinching = false;
-      $('.articles').hammer().on("pinchout", ".card", function(event) {
-          pinching = true;
-      });
-      $('.articles').hammer().on("release", ".card", function(event) {
-          if(pinching){ 
-            window.location = '/pray';
-            pinching = false; 
-          }
-      });
-</script>
