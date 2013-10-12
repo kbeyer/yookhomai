@@ -218,6 +218,8 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         var newText = $event.target.value;
         if(newText === ''){ return false; }
 
+        $event.target.disabled = true;
+
         var article = new Articles({
             title: newText,
             source: 'web'
@@ -226,6 +228,8 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
             // add to current list
             $scope.articles.unshift(response);
             $event.target.value = '';
+
+            $event.target.disabled = false;
         });
 
         $event.target.value = 'Saving...';
