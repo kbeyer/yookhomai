@@ -239,7 +239,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
     $scope.saveNew = function($event){
         if(!$event){ return false; }
         var newText = $event.target.value;
-        if(newText === '' || 'Saving...'){ return false; }
+        if(newText === '' || newText === 'Saving...'){ return false; }
 
         $event.target.disabled = true;
         $event.target.value = 'Saving...';

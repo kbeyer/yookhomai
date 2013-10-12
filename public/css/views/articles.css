@@ -69,6 +69,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c1ffda', e
   bottom: 0;
   right: 0;
   font-size: 0.9rem;
+  width: 100%;
 }
 .card .card-footer .icon-button{
   font-size: 1.5rem;
