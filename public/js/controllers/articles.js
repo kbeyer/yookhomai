@@ -159,7 +159,11 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
 
           case 'release':
               if($scope.pinching){
-                window.location = '/pray?id=' + article._id;
+                var prayPath = '/pray?id=' + article._id;
+                if($scope.tagFilter){
+                  prayPath += '&tag=' + $scope.tagFilter;
+                }
+                window.location = prayPath;
                 $scope.pinching = false; 
               }
               // more then 50% moved, re-activate or remove
@@ -235,9 +239,10 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
     $scope.saveNew = function($event){
         if(!$event){ return false; }
         var newText = $event.target.value;
-        if(newText === ''){ return false; }
+        if(newText === '' || 'Saving...'){ return false; }
 
         $event.target.disabled = true;
+        $event.target.value = 'Saving...';
 
         var newTags = [];
         if($scope.tagFilter){
@@ -257,7 +262,6 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
             $event.target.disabled = false;
         });
 
-        $event.target.value = 'Saving...';
 
         return false;
     };
