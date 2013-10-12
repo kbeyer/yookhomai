@@ -239,7 +239,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
         var input = $event.target;
         var article = this.article;
         // check if text changed
-        if(input.value === article.title){ return false; }
+        //if(input.value === article.title){ return false; }
 
         // mark disabled while updating
         input.disabled = true;
