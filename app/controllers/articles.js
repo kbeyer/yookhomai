@@ -84,16 +84,23 @@ exports.all = function(req, res) {
 
     var skip = 0;
     var limit = 100;
+    var tag = null;
     if(req.query.skip){ skip = req.query.skip; }
     if(req.query.limit){ limit = req.query.limit; }
+    if(req.query.tag){ tag = req.query.tag; }
+
+    var query = Article.find({user: req.user});
+    if(tag){
+        query = Article.find({user: req.user, tags: tag});
+    }
     // only show articles for current user
-    Article.find({user: req.user})
-            .where('status').ne('removed')
+    query.where('status').ne('removed')
             .sort('-created')
             .populate('user')
             .skip(skip)
-            .limit(limit)
-            .exec(function(err, articles) {
+            .limit(limit);
+    
+    query.exec(function(err, articles) {
         if (err) {
             res.jsonp(err);
         } else {
@@ -109,12 +116,17 @@ exports.pray = function(req, res) {
 
     var skip = 0;
     var limit = 100;
+    var tag = null;
     if(req.query.skip){ skip = req.query.skip; }
     if(req.query.limit){ limit = req.query.limit; }
+    if(req.query.tag){ tag = req.query.tag; }
 
+    var query = Article.find({user: req.user});
+    if(tag){
+        query = Article.find({user: req.user, tags: tag});
+    }
     // only show articles for current user
-    Article.find({user: req.user})
-            .or([{status: 'active'}, {status: null}]) // load docs that are active and those that don't have the status field
+    query.or([{status: 'active'}, {status: null}]) // load docs that are active and those that don't have the status field
             .sort('-created')
             .populate('user')
             .skip(skip)

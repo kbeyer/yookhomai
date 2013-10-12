@@ -102,3 +102,33 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c1ffda', e
   text-decoration: line-through;
   color: #555;
 }
+/** tag list styling **/
+.tag-list{
+  list-style: none;
+  color: #eee;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+ul.articles .tag-list li{
+  cursor: pointer;
+  float: left;
+  padding-right: 5px;
+}
+ul.articles .tag-list li:hover{
+  color: #fff;
+}
+.tag-filter.label{
+  font-size: 1.5rem;
+  border-radius: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 5;
+}
+.tag-filter .close{
+  float: none;
+}

@@ -2,6 +2,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
     $scope.global = Global;
     if(!$scope.global.user){ $location.path('/w'); return false; }
 
+    $scope.tagFilter = null;
     $scope.nameMaxCharacters = 10;
     $scope.pinching = false;
 
@@ -191,26 +192,44 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
       }
     };
 
-    $scope.find = function(query) {
+    $scope.find = function(query, done) {
         if(!$scope.global.user){ $location.path('/w'); return false; }
         Articles.query(query, function(articles) {
             if(!articles || articles.length === 0){
                 articles = [];
-                if($scope.global.hasTouch){
-                    articles.push({title: 'Touch an item to edit', user: {_id: $scope.global.user._id}});
-                    articles.push({title: 'Swipe right to mark answered', user: {_id: $scope.global.user._id}});
-                    articles.push({title: 'Swipe left to remove', user: {_id: $scope.global.user._id}});
-                    articles.push({title: 'Pinch out to enter pray mode', user: {_id: $scope.global.user._id}});
-                }else{
-                    articles.push({title: 'Click an item to edit', user: {_id: $scope.global.user._id}});
-                    articles.push({title: 'Use thumbs up to mark answered', user: {_id: $scope.global.user._id}});
-                    articles.push({title: 'Thumbs down to mark unanswered', user: {_id: $scope.global.user._id}});
-                    articles.push({title: 'Click X to remove', user: {_id: $scope.global.user._id}});
-                    articles.push({title: 'Click play button to enter pray mode', user: {_id: $scope.global.user._id}});
+                // if the query is empty populate defaults
+                if(!query){
+                  if($scope.global.hasTouch){
+                      articles.push({title: 'Touch an item to edit', user: {_id: $scope.global.user._id}});
+                      articles.push({title: 'Swipe right to mark answered', user: {_id: $scope.global.user._id}});
+                      articles.push({title: 'Swipe left to remove', user: {_id: $scope.global.user._id}});
+                      articles.push({title: 'Pinch out to enter pray mode', user: {_id: $scope.global.user._id}});
+                  }else{
+                      articles.push({title: 'Click an item to edit', user: {_id: $scope.global.user._id}});
+                      articles.push({title: 'Use thumbs up to mark answered', user: {_id: $scope.global.user._id}});
+                      articles.push({title: 'Thumbs down to mark unanswered', user: {_id: $scope.global.user._id}});
+                      articles.push({title: 'Click X to remove', user: {_id: $scope.global.user._id}});
+                      articles.push({title: 'Click play button to enter pray mode', user: {_id: $scope.global.user._id}});
+                  }
                 }
             }
             $scope.articles = articles;
+            if(done){ done(); }
         });
+    };
+
+    $scope.filterByTag = function(tag){
+      $scope.find({tag: tag}, function(){
+        // after find .. set current tag
+        $scope.tagFilter = tag;
+      });
+    };
+
+    $scope.clearTagFilter = function(){
+      $scope.find(null, function(){
+        // after find .. set current tag
+        $scope.tagFilter = null;
+      });
     };
 
     $scope.saveNew = function($event){
@@ -220,9 +239,15 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
 
         $event.target.disabled = true;
 
+        var newTags = [];
+        if($scope.tagFilter){
+          newTags.push($scope.tagFilter);
+        }
+
         var article = new Articles({
             title: newText,
-            source: 'web'
+            source: 'web',
+            tags: newTags
         });
         article.$save(function(response) {
             // add to current list
