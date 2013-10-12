@@ -19,7 +19,7 @@ ul.articles li .card{
   margin: 0.2rem;
   padding: 15px;
   overflow: hidden;
-  /*opacity: 0.4;*/
+  opacity: 0.4;
   background: #222;
   border-bottom: solid 1px #222;
 }
