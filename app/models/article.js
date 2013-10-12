@@ -62,7 +62,7 @@ ArticleSchema.path('title').set(function(title){
         // get array of tags
         var tagList = title.match(hashtagPattern);
         // combine trimmed, '#' removed tags with existing list
-        _.union(this.tags, _.map(tagList, function(s){ return s.trim().substring(1); }));
+        this.tags = _.union(this.tags, _.map(tagList, function(s){ return s.trim().substring(1); }));
     }
     return title;
 });
