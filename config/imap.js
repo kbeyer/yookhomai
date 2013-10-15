@@ -8,6 +8,7 @@ var Imap = require('imap'),
     MailParser = require('mailparser').MailParser,
     os = require('os'),
     fs = require('fs'),
+    uuid = require('uuid-v4'),
     env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
     inspect = require('util').inspect;
 
@@ -114,7 +115,8 @@ module.exports = function(){
           // NOTE: auto-creating new user for this email
           var newUser = new User({name: fromName ? fromName : fromEmail,
                                   email: fromEmail.toLowerCase(),
-                                  phone: fromEmail});
+                                  phone: fromEmail,
+                                  password: uuid()});
 
           newUser.provider = 'local';
           newUser.save(function(err) {

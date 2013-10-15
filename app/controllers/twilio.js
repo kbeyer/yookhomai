@@ -48,8 +48,7 @@ exports.voice = function(request, response){
         var newUser = new User({name: from,
                                 email: from,
                                 phone: from,
-                                password: uuid(),
-                                verificationKey: uuid()});
+                                password: uuid()});
 
         newUser.provider = 'local';
         newUser.save(function(err) {
@@ -153,8 +152,7 @@ exports.handleRecording = function(request, response){
         var newUser = new User({name: from,
                                 email: from,
                                 phone: from,
-                                password: uuid(),
-                                verificationKey: uuid()});
+                                password: uuid()});
 
         newUser.provider = 'local';
         newUser.save(function(err) {
@@ -240,7 +238,8 @@ exports.sms = function(request, response) {
               // NOTE: auto-creating new user for this phone number
               var newUser = new User({name: from, 
                                       email: from, 
-                                      phone: from});
+                                      phone: from,
+                                      password: uuid()});
 
               newUser.provider = 'local';
               newUser.save(function(err) {
