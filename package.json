@@ -43,7 +43,8 @@
     "mailparser": "latest",
     "madmimi-node": "latest",
     "uuid-v4": "latest",
-    "grunt-modernizr": "~0.3.0"
+    "grunt-modernizr": "~0.3.0",
+    "nodetime": "~0.8.13"
   },
   "devDependencies": {
     "supertest": "latest",
