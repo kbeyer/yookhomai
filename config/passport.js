@@ -90,9 +90,14 @@ module.exports = function(passport) {
         function(req, accessToken, refreshToken, profile, done) {
 
             var passThroughParams = JSON.parse( decodeURIComponent( req.query.state) );
-            var verificationKey = passThroughParams.k;
-            var verificationEmail = passThroughParams.email;
-            var verificationPhone = passThroughParams.phone;
+            var verificationKey = null;
+            var verificationEmail = null;
+            var verificationPhone = null;
+            if(passThroughParams){
+                verificationKey = passThroughParams.k;
+                verificationEmail = passThroughParams.email;
+                verificationPhone = passThroughParams.phone;
+            }
 
 
             var checkPhone = function(phone, callback){
