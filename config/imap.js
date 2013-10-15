@@ -48,7 +48,7 @@ module.exports = function(){
       raw_html:'<html><head><title>Welcome to Yookhomai!</title></head>' +
                 '<body>A new Yookhomai has been created from the email you just sent with Subject ' +
                     article.title + '.  Finish setting up your account at ' +
-                    'http://app.yookhomai.com/signup?email=' + user.email +
+                    'http://app.yookhomai.com/e/' + user.verificationKey +
                     '[[tracking_beacon]]</body></html>'
     };
 
@@ -114,8 +114,7 @@ module.exports = function(){
           // NOTE: auto-creating new user for this email
           var newUser = new User({name: fromName ? fromName : fromEmail,
                                   email: fromEmail.toLowerCase(),
-                                  phone: fromEmail,
-                                  password: 'asdfasdfasdf'});
+                                  phone: fromEmail});
 
           newUser.provider = 'local';
           newUser.save(function(err) {

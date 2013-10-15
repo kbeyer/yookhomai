@@ -6,6 +6,11 @@ module.exports = function(app, passport, auth) {
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
     app.get('/signout', users.signout);
+    app.get('/e/:verificationKey', users.emailSignup);
+    app.get('/t/:verificationKey', users.textSignup);
+    // setup param to get user by verification key
+    app.param('verificationKey', users.getByVerificationKey);
+
     var passwords = require('../app/controllers/passwords');
     app.get('/forgot', passwords.forgot);
     app.post('/forgot', passwords.sendReset);
@@ -24,10 +29,13 @@ module.exports = function(app, passport, auth) {
     app.get('/users/:userId', users.show);
 
     //Setting the facebook oauth routes
+    app.get('/auth/facebook', auth.authWithQueryAsState, users.signin);
+
+    /*
     app.get('/auth/facebook', passport.authenticate('facebook', {
         scope: ['email', 'user_about_me'],
         failureRedirect: '/signin'
-    }), users.signin);
+    }), users.signin);*/
 
     app.get('/auth/facebook/callback', passport.authenticate('facebook', {
         failureRedirect: '/signin'

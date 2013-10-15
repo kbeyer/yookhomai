@@ -84,19 +84,67 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy({
             clientID: config.facebook.clientID,
             clientSecret: config.facebook.clientSecret,
-            callbackURL: config.facebook.callbackURL
+            callbackURL: config.facebook.callbackURL,
+            passReqToCallback: true
         },
-        function(accessToken, refreshToken, profile, done) {
+        function(req, accessToken, refreshToken, profile, done) {
+
+            var passThroughParams = JSON.parse( decodeURIComponent( req.query.state) );
+            var verificationKey = passThroughParams.k;
+            var verificationEmail = passThroughParams.email;
+            var verificationPhone = passThroughParams.phone;
+
+
+            var checkPhone = function(phone, callback){
+                if(phone && verificationPhone === phone) {
+                    callback(true);
+                } else {
+                    callback(false);
+                }
+            };
 
             var checkEmail = function(email, callback){
-                if(email){
-                    // first try to lookup existing user to link via email
-                    User.findOne({'email': email}, function(err, user){
-                        if(err){ return done(err); }
-                        callback(user);
-                    });
+                if(email && verificationEmail === email){
+                    callback(true);
+                } else {
+                    callback(false);
                 }
-                callback(false);
+            };
+
+            var checkVerification = function(callback){
+                // if there is a verificationKey ... then validate and allow account link
+                if(verificationKey){
+                    User.findOne({
+                        verificationKey: verificationKey,
+                        status: 'pending'
+                    })
+                    .exec(function(err, verifiedUser) {
+                        if(err) {
+                            return done(err);
+                        } else if(!verifiedUser ||
+                                  (verifiedUser.email !== verificationEmail && verifiedUser.phone !== verificationPhone)) {
+                            return done(new Error('Invalid verification key'));
+                        } else {
+                            checkPhone(verifiedUser.phone, function(phoneValidated){
+                                if(phoneValidated){
+                                    // allow link via phone
+                                    callback(verifiedUser);
+                                }else{
+                                    checkEmail(verifiedUser.email, function(emailValidated){
+                                        if(emailValidated){
+                                            callback(verifiedUser);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    // don't allow accout linking if no verification KEY
+                    // treat as new signup
+                    // TODO: show form for phone?
+                    if(callback){ return callback(); }
+                }
             };
 
             // FIRST try to find by facebook id
@@ -107,30 +155,33 @@ module.exports = function(passport) {
                         return done(err);
                     }
                     if (!user) {
-                        // SECOND try to find by email
-                        checkEmail(profile.emails[0].value, function(userByEmail){
-                            // if existing user has same email ... link account
-                            if(userByEmail){
-                                userByEmail.name = profile.displayName;
-                                userByEmail.username = profile.username;
-                                userByEmail.provider = 'facebook';
-                                userByEmail.facebook = profile._json;
-                                user = userByEmail;
-                            }else{
-                                user = new User({
-                                    name: profile.displayName,
-                                    email: profile.emails[0].value,
-                                    username: profile.username,
-                                    provider: 'facebook',
-                                    facebook: profile._json
-                                });
-                            }
 
+                        // shared save user fn
+                        var saveUser = function(user){
+                            user.name = profile.displayName;
+                            user.username = profile.username;
+                            user.provider = 'facebook';
+                            user.facebook = profile._json;
+                            user.status = 'joined';
                             user.save(function(err) {
                                 if (err) console.log(err);
                                 return done(err, user);
                             });
-                        });
+                        };
+
+                        // if no existing user ... check for verification key to associate existing account
+                        if(verificationKey) {
+                            checkVerification( function(verifiedUser) {
+                                if(verifiedUser) {
+                                    saveUser(verifiedUser);
+                                } else {
+                                    return done( new Error('User verification failed') );
+                                }
+                            });
+                        } else {
+                            user = new User({email: profile.emails[0].value.toLowerCase()});
+                            saveUser(user);
+                        }
                     } else {
                         return done(err, user);
                     }

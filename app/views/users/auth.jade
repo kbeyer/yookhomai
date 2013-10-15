@@ -17,9 +17,17 @@ block content
                 span #{error.message}
 
 
+  - var facebookAuthUrl = '/auth/facebook/'
+  if user.phone
+    - facebookAuthUrl = facebookAuthUrl + '?phone=' + user.phone
+  else if user.email
+    - facebookAuthUrl = facebookAuthUrl + '?email=' + user.email
+  if user.verificationKey
+    - facebookAuthUrl = facebookAuthUrl + '&k=' + user.verificationKey
+
   .row.social-auth
     .social-auth-btn.col-md-6
-      a.btn.btn-primary.btn-lg(href="/auth/facebook")
+      a.btn.btn-primary.btn-lg(href="#{facebookAuthUrl}")
         i.icon-facebook
         span.text-after-icon Facebook
 

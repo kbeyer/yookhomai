@@ -6,6 +6,8 @@ block auth
 
   form.signup.form-horizontal(action="/users", method="post")
 
+    input#verificationKey(type='hidden', name='verificationKey', value=user.verificationKey)
+    
     .input-group.input-group-lg.required
       input#name(type='text', name="name", class='form-control', placeholder='Display name', value=user.name)
 

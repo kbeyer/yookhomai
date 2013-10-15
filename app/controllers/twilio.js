@@ -201,7 +201,7 @@ exports.sms = function(request, response) {
           var message = 'Saved!';
           switch(user.status){
             case "pending":
-              message = message + ' Setup your Yookhomai account at http://app.yookhomai.com/signup?phone=' + encodeURIComponent(from);
+              message = message + ' Setup your Yookhomai account at http://app.yookhomai.com/t/' + user.verificationKey;
               break;
             case "suspended":
               message = 'Sorry, your account is currently suspended.';
@@ -240,9 +240,7 @@ exports.sms = function(request, response) {
               // NOTE: auto-creating new user for this phone number
               var newUser = new User({name: from, 
                                       email: from, 
-                                      phone: from, 
-                                      password: uuid(), 
-                                      verificationKey: uuid()});
+                                      phone: from});
 
               newUser.provider = 'local';
               newUser.save(function(err) {
