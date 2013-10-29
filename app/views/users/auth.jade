@@ -18,11 +18,11 @@ block content
 
 
   - var facebookAuthUrl = '/auth/facebook/'
-  if user.phone
+  if user && user.phone
     - facebookAuthUrl = facebookAuthUrl + '?phone=' + user.phone
-  else if user.email
+  else if user && user.email
     - facebookAuthUrl = facebookAuthUrl + '?email=' + user.email
-  if user.verificationKey
+  if user && user.verificationKey
     - facebookAuthUrl = facebookAuthUrl + '&k=' + user.verificationKey
 
   .row.social-auth
